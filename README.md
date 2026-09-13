@@ -20,8 +20,10 @@
 | 기수 | 가짜연구소 13기 Open Academy |
 | 활동 기간 | 2026.10.04 – 2027.01.09 (12주 코어 + 2주 버퍼) |
 | 정기 모임 | 매주 **월요일** 20:30–22:30 (2시간) |
-| 인원 | 6명 (빌더 1 + 러너 5) |
+| 인원 | 9명 (빌더 1 + 러너 8) |
 | 커뮤니케이션 | 가짜연구소 디스코드 `#Room-GH` |
+| 저장소 | https://github.com/andrewJYjang/Sim2Real-Walking-Robot · MIT License |
+| 프로젝트 페이지 | https://pseudo-lab.com/projects/5fc7d556-54df-4f3d-9cbc-e5e862796ead |
 
 ---
 
