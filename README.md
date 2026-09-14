@@ -22,7 +22,7 @@
 | 정기 모임 | 매주 **월요일** 20:30–22:30 (2시간) |
 | 인원 | 9명 (빌더 1 + 러너 8) |
 | 커뮤니케이션 | 가짜연구소 디스코드 `#Room-GH` |
-| 저장소 | https://github.com/andrewJYjang/Sim2Real-Walking-Robot · MIT License |
+| 저장소 | https://github.com/Pseudo-Lab/Sim2Real-Walking-Robot · MIT License |
 | 프로젝트 페이지 | https://pseudo-lab.com/projects/5fc7d556-54df-4f3d-9cbc-e5e862796ead |
 
 ---
