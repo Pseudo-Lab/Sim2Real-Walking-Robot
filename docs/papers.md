@@ -1,217 +1,109 @@
 # 📚 Paper Study — Robot Learning & Sim2Real
 
-## How We Study
+## Goal
 
-아래 논문들은 참여자에게 배정된 논문이 아닙니다.
+논문을 단순히 읽고 요약하는 것이 아니라,
 
-Robot Learning, Legged Locomotion, Reinforcement Learning,
-Sim-to-Real 분야를 탐색하기 위한 **Seed Papers**입니다.
+**Paper → Question → Code → Experiment → Robot**
 
-각 참여자는 아래 논문들을 참고하여 자신이 관심 있는
-연구 주제(Research Question)를 정하고,
-관련 논문을 직접 탐색하여 연구할 논문을 선정합니다.
+으로 연결하는 것을 목표로 합니다.
 
-Seed Papers
-    ↓
-Find an interesting topic
-    ↓
-Define a Research Question
-    ↓
-Search related papers
-    ↓
-Choose your paper
-    ↓
-Study / Code / Reproduce
-    ↓
-Apply to our robot
+아래 논문은 참여자에게 배정된 논문이 아니라,
+연구 주제를 탐색하기 위한 **Seed Papers**입니다.
 
-## My Research Interest
+각 참여자는 Seed Papers를 참고하여 관심 있는 연구 질문을 정하고,
+관련 논문을 추가로 탐색하여 자신의 연구 논문을 선정합니다.
 
-Name / GitHub ID:
+---
 
-### Topic
-Low-cost Biped / Sim2Real / RL / Actuator Modeling / ...
+## 🌱 Seed Papers
 
-### Research Question
-내가 궁금한 것은 무엇인가?
+| # | Topic | Paper | Research Question |
+|---|---|---|---|
+| 1 | RL | **Proximal Policy Optimization Algorithms** (2017) | 왜 locomotion에서 PPO를 많이 사용하는가? |
+| 2 | Parallel RL | **Learning to Walk in Minutes** (CoRL 2022) | 병렬 simulation은 보행 학습을 얼마나 빠르게 하는가? |
+| 3 | Sim2Real | **Rapid Motor Adaptation (RMA)** (RSS 2021) | 실제 환경 변화에 어떻게 빠르게 적응하는가? |
+| 4 | Robust Locomotion | **DreamWaQ** (ICRA 2023) | 제한된 센서만으로 안정적인 보행이 가능한가? |
+| 5 | Terrain | **Extreme Parkour with Legged Robots** (ICRA 2024) | perception과 RL을 어떻게 결합하는가? |
+| 6 | Biped RL | **Learning Agile Soccer Skills for a Bipedal Robot** (2024) | 2족 로봇의 Sim2Real은 어떻게 이루어지는가? |
+| 7 | Low-cost Robot | **Berkeley Humanoid Lite** (2025) | 저비용·3D printed robot에서도 Sim2Real이 가능한가? |
+| 8 | Physics Gap | **ASAP** (2025) | simulation과 실제 physics의 차이를 어떻게 줄이는가? |
+| 9 | Foundation Model | **Humanoid Locomotion as Next Token Prediction** (2024) | locomotion을 sequence prediction으로 볼 수 있는가? |
 
-### Candidate Papers
+---
+
+## 🔎 Find Your Research Question
+
+예를 들어:
+
+**Low-cost Biped**
+
+Berkeley Humanoid Lite  
+→ 더 단순한 biped는 가능한가?  
+→ 4 / 6 / 8 DOF 비교  
+→ 관련 논문 탐색  
+→ MuJoCo 실험  
+→ 실제 robot
+
+또는:
+
+**Sim2Real**
+
+RMA / ASAP  
+→ Reality Gap의 가장 큰 원인은 무엇인가?  
+→ Domain Randomization  
+→ Actuator Modeling  
+→ 실제 robot 비교
+
+Seed Paper와 최종적으로 연구할 논문은 **같을 필요가 없습니다.**
+
+---
+
+## 🧑‍🔬 My Research Interest
+
+각 참여자는 다음 내용을 정리합니다.
+
+**Topic**
+
+관심 있는 Robot Learning / Walking Robot 주제
+
+**Research Question**
+
+> 내가 정말 궁금한 것은 무엇인가?
+
+**Candidate Papers**
+
 1.
 2.
 3.
 
-### Selected Paper
-아직 미정 가능
+**Selected Paper**
 
-### Why?
-왜 이 주제를 연구하고 싶은가?
+아직 미정이어도 됩니다.
 
-# 📚 Paper Study
+**Why?**
 
-Sim2Real Walking Robot Challenge에서 함께 공부할
-Robot Learning / Reinforcement Learning / Sim2Real 관련 논문 목록입니다.
-
-목표는 논문을 단순히 요약하는 것이 아니라,
-
-**Paper → Idea → Code → Experiment → Robot**
-
-으로 연결하는 것입니다.
+왜 이 문제를 연구하고 싶은가?
 
 ---
 
-## 1. Proximal Policy Optimization Algorithms
-**Schulman et al., 2017**
+## 🗣️ Sharing
 
-PPO(Proximal Policy Optimization)의 기본 논문.
-현재 로봇 locomotion 강화학습에서 가장 널리 사용되는
-알고리즘 중 하나이다.
-
-### 우리가 볼 것
-- PPO는 어떻게 동작하는가?
-- 왜 locomotion에서 PPO를 많이 사용하는가?
-- 우리 walking policy의 baseline으로 어떻게 사용할 수 있는가?
-
-Paper:
-https://arxiv.org/abs/1707.06347
-
----
-
-## 2. Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning
-**Rudin et al., CoRL 2022**
-
-수많은 simulation environment를 병렬 실행하여
-보행 정책을 매우 빠르게 학습하는 방법을 보여준다.
-
-### 우리가 볼 것
-- Parallel RL이 왜 중요한가?
-- 많은 robot simulation을 동시에 돌리면 무엇이 달라지는가?
-- MuJoCo / Isaac Lab에서 비슷한 실험을 할 수 있는가?
-
-Paper:
-https://proceedings.mlr.press/v164/rudin22a.html
-
----
-
-## 3. RMA: Rapid Motor Adaptation for Legged Robots
-**Kumar et al., RSS 2021**
-
-로봇이 실제 환경에서 마찰, 지형, payload 등의 변화에
-빠르게 적응하도록 하는 방법을 연구한다.
-
-### 우리가 볼 것
-- Simulation과 Real Robot의 차이를 어떻게 다루는가?
-- Domain Randomization은 어떻게 사용되는가?
-- 우리 Sim2Real gap 측정에 적용할 수 있는가?
-
-Paper:
-https://roboticsproceedings.org/rss17/p011.html
-
----
-
-## 4. DreamWaQ
-**Learning Robust Quadrupedal Locomotion With Implicit Terrain Imagination**
-**ICRA 2023**
-
-제한된 센서 정보만으로도 로봇이 다양한 지형에서
-안정적으로 이동하도록 학습하는 연구이다.
-
-### 우리가 볼 것
-- Observation은 무엇인가?
-- IMU와 joint state만으로 무엇을 알 수 있는가?
-- 저가형 walking robot에도 적용 가능한가?
-
-Paper:
-https://arxiv.org/abs/2301.10602
-
----
-
-## 5. Extreme Parkour with Legged Robots
-**ICRA 2024**
-
-강화학습과 perception을 결합하여 로봇이
-복잡한 장애물과 지형을 통과하도록 만든 연구이다.
-
-### 우리가 볼 것
-- Terrain information을 policy가 어떻게 사용하는가?
-- Robust locomotion이란 무엇인가?
-- 단순 walking 이후 어떤 방향으로 확장할 수 있는가?
-
-Project:
-https://extreme-parkour.github.io/
-
----
-
-## 6. Learning Agile Soccer Skills for a Bipedal Robot with Deep Reinforcement Learning
-**Science Robotics, 2024**
-
-소형 2족 로봇에게 강화학습을 이용하여
-걷기, 방향전환, 공 다루기 등의 동작을 학습시킨 연구이다.
-
-### 우리가 볼 것
-- Biped locomotion을 어떻게 학습하는가?
-- Reward는 어떻게 설계했는가?
-- Simulation에서 배운 동작을 실제 robot으로 어떻게 옮겼는가?
-
----
-
-## 7. Berkeley Humanoid Lite
-**2025**
-
-3D printing과 비교적 쉽게 구할 수 있는 부품을 이용해
-저비용 humanoid research platform을 구축한 연구이다.
-
-### 우리가 볼 것
-- 저비용 robot을 어떻게 설계했는가?
-- 3D printed robot에서도 Sim2Real이 가능한가?
-- 우리가 더 단순한 6-DOF biped를 만들 수 있는가?
-
-Paper:
-https://arxiv.org/abs/2504.17249
-
----
-
-## 8. ASAP
-**Aligning Simulation and Real-World Physics for Learning Agile Humanoid Whole-Body Skills**
-**2025**
-
-Simulation의 물리 특성과 실제 로봇의 움직임 차이를
-실제 데이터를 이용하여 줄이는 접근을 다룬다.
-
-### 우리가 볼 것
-- Reality Gap은 어디에서 발생하는가?
-- Actuator modeling은 왜 중요한가?
-- Domain Randomization과 어떤 차이가 있는가?
-
-Paper:
-https://arxiv.org/abs/2502.01143
-
----
-
-## 9. Humanoid Locomotion as Next Token Prediction
-**2024**
-
-로봇의 locomotion을 전통적인 RL 문제뿐 아니라
-sequence prediction 관점에서도 바라보는 연구이다.
-
-### 우리가 볼 것
-- Robot motion을 token처럼 예측한다는 것은 무엇인가?
-- Transformer와 locomotion을 어떻게 연결하는가?
-- 향후 Robot Foundation Model과 어떤 관계가 있는가?
-
-Paper:
-https://arxiv.org/abs/2402.19469
-
----
-
-# Study Method
-
-9명의 참여자가 우선 한 편씩 선택합니다.
-
-각자 다음 네 가지를 중심으로 5~10분 정도 공유합니다.
+선정한 논문을 중심으로 짧게 공유합니다.
 
 1. 이 논문이 해결하려는 문제
 2. 핵심 아이디어
-3. 가장 흥미로운 실험 결과
-4. 우리 Walking Robot 프로젝트에 적용할 수 있는 한 가지
+3. 가장 흥미로운 실험
+4. 우리 프로젝트에 적용할 수 있는 아이디어
 
-가능하면 논문의 GitHub code도 함께 확인합니다.
+가능하면 논문의 **Code / GitHub / Simulation**도 함께 확인합니다.
+
+---
+
+## 🚀 From Paper to Robot
+
+최종 목표는 논문 발표 자체가 아닙니다.
+
+**Read → Question → Code → Reproduce → Experiment → Sim2Real**
+
+좋은 아이디어는 GitHub Issue와 실험으로 연결합니다.
