@@ -1,3 +1,30 @@
+# 📚 Paper Study — Robot Learning & Sim2Real
+
+## How We Study
+
+아래 논문들은 참여자에게 배정된 논문이 아닙니다.
+
+Robot Learning, Legged Locomotion, Reinforcement Learning,
+Sim-to-Real 분야를 탐색하기 위한 **Seed Papers**입니다.
+
+각 참여자는 아래 논문들을 참고하여 자신이 관심 있는
+연구 주제(Research Question)를 정하고,
+관련 논문을 직접 탐색하여 연구할 논문을 선정합니다.
+
+Seed Papers
+    ↓
+Find an interesting topic
+    ↓
+Define a Research Question
+    ↓
+Search related papers
+    ↓
+Choose your paper
+    ↓
+Study / Code / Reproduce
+    ↓
+Apply to our robot
+
 # 📚 Paper Study
 
 Sim2Real Walking Robot Challenge에서 함께 공부할
