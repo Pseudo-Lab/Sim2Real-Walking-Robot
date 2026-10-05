@@ -25,6 +25,27 @@ Study / Code / Reproduce
     ↓
 Apply to our robot
 
+## My Research Interest
+
+Name / GitHub ID:
+
+### Topic
+Low-cost Biped / Sim2Real / RL / Actuator Modeling / ...
+
+### Research Question
+내가 궁금한 것은 무엇인가?
+
+### Candidate Papers
+1.
+2.
+3.
+
+### Selected Paper
+아직 미정 가능
+
+### Why?
+왜 이 주제를 연구하고 싶은가?
+
 # 📚 Paper Study
 
 Sim2Real Walking Robot Challenge에서 함께 공부할
