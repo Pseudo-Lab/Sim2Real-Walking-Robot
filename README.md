@@ -1,482 +1,994 @@
-# Sim2Real 보행로봇 챌린지
+# 🦿 Sim2Real Walking Robot Challenge
 
 <p align="center">
   <img src="https://img.shields.io/badge/PseudoLab-S13-blue">
   <a href="https://discord.gg/pseudolab"><img src="https://img.shields.io/badge/Discord-PseudoLab-5865F2?logo=discord&logoColor=white"></a>
-  <img src="https://img.shields.io/github/stars/andrewJYjang/Sim2Real-Walking-Robot?logo=github&label=Stars">
-  <img src="https://img.shields.io/github/forks/andrewJYjang/Sim2Real-Walking-Robot?logo=github&label=Forks">
-  <img src="https://img.shields.io/github/issues/andrewJYjang/Sim2Real-Walking-Robot?label=issues">
-  <img src="https://img.shields.io/github/issues-pr/andrewJYjang/Sim2Real-Walking-Robot?label=pull%20requests">
-  <img src="https://img.shields.io/github/contributors/andrewJYjang/Sim2Real-Walking-Robot">
-  <img src="https://img.shields.io/github/license/andrewJYjang/Sim2Real-Walking-Robot?color=yellow">
+  <img src="https://img.shields.io/github/stars/Pseudo-Lab/Sim2Real-Walking-Robot?logo=github&label=Stars">
+  <img src="https://img.shields.io/github/forks/Pseudo-Lab/Sim2Real-Walking-Robot?logo=github&label=Forks">
+  <img src="https://img.shields.io/github/issues/Pseudo-Lab/Sim2Real-Walking-Robot?label=issues">
+  <img src="https://img.shields.io/github/issues-pr/Pseudo-Lab/Sim2Real-Walking-Robot?label=pull%20requests">
+  <img src="https://img.shields.io/github/contributors/Pseudo-Lab/Sim2Real-Walking-Robot">
+  <img src="https://img.shields.io/github/license/Pseudo-Lab/Sim2Real-Walking-Robot?color=yellow">
 </p>
 
-## 소개
+> **We do not stop when the robot walks in simulation.  
+> We measure what happens when it meets the real world.**
 
-400달러 안팎의 오픈소스 이족 보행 로봇 위에서, 시뮬레이션에서 학습한 보행 정책이 실물에서 얼마나, 왜 무너지는지를 측정 가능한 형태로 남깁니다. 하드웨어가 없어도 시뮬레이션 트랙으로 끝까지 완주할 수 있습니다. 허깅페이스 오픈소스 로봇을 움직이는 소스코드는 이미 알만한 사람들은 다 알죠, 세상에 완벽한 로보틱스 커리큘럼을 찾고 성공하고 싶은 분들은 어떤 뭔가 우리가 모르는 다른 것을 우리 몰래 알고 있을까요? 업계의 히든카드 같은 비기? MicroDuck, MD-01를 만들기까지 허깅페이스 로보틱스 전문가들은 입문자들을 위해 엄청나게 노력하고 있음을 조금이라도 일찍 시작해보면 알 수 있어요. 같이 해봅시다. 우리도 잘 할 수 있어요. 그리고 왜 잘 안되지는 지도, 어려운 지도 함께 해보면 풀어갈 수 있어요. 그래서, 우리가 함께 모이고자 합니다. 
+## 🚀 소개
 
-*OT 첫날이 가장 중요합니다. 10월 4일(Sun), 오후8시반, 제프리 힌튼 Room-GH에서 만납니다. 
-*첫날 로봇팔 Lerobot so-101으로 양팔 로봇 학습, Lekiwi, XLerobot으로 이어지는 허깅페이스 오픈소스 로봇 입문에 대해 간략하게 다루어도 시간이 충분하진 않을 것 같아도, 최대한 충분히 커버해보고 싶네요.
-*항상 미디어를 장식하는 휴머노이드 로봇은, LLM, RFM 전공자들도 아직은 흔하지 않으니 뛰어드는 노력만큼 가져갈 것인데요. 로봇팔 하나 가격도 액츄에이터가 수시로 고장나기 쉬운 경험을 해보면 과연 개인 로봇 개발이 가능한 것인지 걱정도 들 수 있어요. 그래서, 우리가 모여서 함께 하는 것인데요. 힘냅시다. 
-*오픈 단톡방을 만들었어요. 백업용으로 필요할 때가 있으니까요. 가짜연구소 Sim2Real Walking Robot
-https://open.kakao.com/o/gTiE0cQi
+**Sim2Real Walking Robot Challenge**는 저비용 오픈소스 이족보행 로봇을 이용하여  
+시뮬레이션에서 학습한 locomotion policy가 실제 로봇에서 **얼마나, 왜 달라지는지 직접 측정하는 Physical AI 프로젝트**입니다.
 
+MuJoCo에서 PPO 기반 보행 정책을 학습하고, 동일한 정책을 실제 로봇에 배포하여 Sim-to-Real gap을 측정합니다.
+
+단순히 로봇을 걷게 만드는 데서 끝나지 않습니다.
+
+> **Simulation → Learning → Real Robot → Failure → Measurement → Improvement**
+
+성공한 실험뿐 아니라 넘어짐, 진동, 제자리걸음, 복귀 실패 같은 **실패도 데이터로 기록**합니다.
+
+하드웨어가 없어도 Simulation Track만으로 프로젝트의 핵심 학습과 실험을 완주할 수 있습니다.
+
+---
+
+## 🗓️ Project Overview
 
 | 항목 | 내용 |
-|------|------|
+|---|---|
 | 기수 | 가짜연구소 13기 Open Academy |
-| 활동 기간 | 2026.10.04 – 2027.01.09 (12주 코어 + 2주 버퍼) |
-| 정기 모임 | 매주 **일요일** 20:30 - 22:30 / 21:00–23:00 (2시간) | 
-| 인원 | 9명 (빌더 1 + 러너 8) |
-| 커뮤니케이션 | 가짜연구소 디스코드 `#Room-GH` |
-| 저장소 | https://github.com/Pseudo-Lab/Sim2Real-Walking-Robot · MIT License |
-| 프로젝트 페이지 | https://pseudo-lab.com/projects/5fc7d556-54df-4f3d-9cbc-e5e862796ead |
+| 활동 기간 | **2026.10.04 – 2027.01.09** |
+| 구성 | 12주 Core + 2주 Buffer / Research Transition |
+| 정기 모임 | 매주 **일요일 21:00–23:00** |
+| 커뮤니케이션 | Pseudo-Lab Discord `#Room-GH` |
+| Repository | `Pseudo-Lab/Sim2Real-Walking-Robot` |
+| License | MIT |
+| Core Robot | Open Duck Mini 계열 low-cost biped |
+| Simulation | MuJoCo + `microduck_rl` |
+| Robot Learning | PPO / LeRobot |
+| Model & Data Sharing | GitHub + Hugging Face Hub |
+
 ---
-20:30 / 21:00 시작 시간의 차이는 갑자기 너무 방대한 양을 다루는 입장에서 앞으로는 좀 더 매끄럽게 되겠으나,
-몇 달, 몇 년 (10년 개인 사업을 포함하더라도) 그런 관점에서는 큰 차이는 아닐 수 있어도. (이해하기 어렵나요?)
-쉽게 말해서, 수면 시간이 너무 짧다 보니, 여러가지를 동시에 수정하거나 고정할 체력이나 다른 것도 어려울 때가 있어요. 번아웃, 우울증... 어려운 연구에는 여러가지 부작용도 있으니 널리 이해해주세요.
-조금씩 나아질 것이니까요. 토요일까진 정리해볼게요.
 
-## ✨ Why this project?
+# ✨ Why This Project?
 
-로봇 학습의 표준 흐름은 "시뮬레이션에서 학습하고 현실로 옮기는 것(Sim-to-Real)"입니다. 2026년 현재 이 흐름을 다루는 자료는 넘칩니다. 대규모 병렬 RL로 몇 시간 만에 보행을 학습시키는 코드가 공개돼 있고, LeRobot을 비롯한 오픈소스 프레임워크가 진입장벽을 크게 낮췄습니다.
+Robot Learning의 대표적인 흐름 중 하나는
 
-그런데 막상 해보려면 두 개의 벽이 있습니다.
+> **Learn in Simulation → Deploy to Reality**
 
-**첫째, 하드웨어입니다.** 논문에 나오는 로봇은 수천만 원짜리입니다. 시뮬레이션까지는 누구나 돌려볼 수 있지만, 정책을 실물에 올려보는 순간부터는 대부분 구경만 하게 됩니다. 학습 경험이 "시뮬에서 잘 걷더라"에서 끊깁니다.
+입니다.
 
-**둘째, 격차가 왜 생기는지는 아무도 정리해주지 않습니다.** Sim-to-Real 격차가 존재한다는 사실은 모두 압니다. 도메인 랜덤화가 도움이 된다는 것도 압니다. 그런데 *어떤 조건에서, 얼마나* 라는 질문에는 각자의 로봇, 각자의 세팅에서 나온 단편적인 수치만 있습니다. 같은 로봇으로 조건을 나눠 측정하고 공개한 기록이 드뭅니다.
+시뮬레이션에서는 대규모 병렬 환경을 이용해 빠르게 locomotion policy를 학습할 수 있습니다.
 
-이 프로젝트는 두 벽을 동시에 낮춥니다. 400달러 안팎의 3D 프린팅 로봇을 대상으로 잡아 실물 트랙의 비용을 현실화하고, 격차를 감으로 말하지 않고 조건별로 측정해 공개합니다.
+그러나 실제 로봇으로 옮기는 순간 문제가 달라집니다.
 
-## 🎯 우리가 풀고 싶은 문제
+### 1. Hardware Gap
 
-> **로봇 학습을 배우려는 사람들이, 시뮬레이션에서 학습한 정책이 실물에서 왜 무너지는지 직접 확인할 방법이 없어 어려움을 겪고 있다.**
+논문에 등장하는 로봇은 개인이나 입문자가 쉽게 접근하기 어려운 경우가 많습니다.
 
-### 핵심 질문
+우리는 **low-cost open-source biped**를 이용하여 실제 Sim-to-Real 실험의 진입장벽을 낮춥니다.
 
-- 시뮬레이션 성공률이 실물 성공률을 얼마나 예측하는가?
-- 도메인 랜덤화의 범위를 넓힐수록 실물 성능은 단조증가하는가, 아니면 어느 지점부터 오히려 나빠지는가?
-- 액추에이터 모델링(서보 지연·토크 한계)은 랜덤화와 비교해 어느 쪽이 격차를 더 줄이는가?
-- 시뮬에서 잘 걷던 정책이 실물에서 무너질 때, 그 실패는 *어떤 종류*인가 — 넘어짐인가, 제자리 걸음인가, 진동인가?
-- 같은 정책을 같은 조건에서 반복 실행하면 결과가 재현되는가?
+### 2. Reality Gap
 
-### 왜 이 주제인가
+시뮬레이션과 현실은 같지 않습니다.
 
-- **보행은 실패가 눈에 보입니다.** 넘어지면 넘어진 겁니다. 지표 해석을 두고 다툴 여지가 적어 입문자도 결과를 읽을 수 있습니다.
-- **Negative result가 그대로 결과가 됩니다.** "도메인 랜덤화를 이만큼 걸었는데도 실물에서 이 정도밖에 안 됐다"는 기록 자체가 공개 가치를 가집니다.
-- **작업 난이도가 3단계로 자연스럽게 갈립니다.** 시뮬 실험 / 보상 설계 / 하드웨어 조립은 요구 역량이 다릅니다. 실력 편차가 큰 팀에 적합합니다.
-- **필요한 인프라가 전부 공개돼 있습니다.** MuJoCo, microduck_rl, LeRobot, Open Duck Mini CAD, Hugging Face Hub.
-- **GPU 의존도가 낮은 척추 위에 무거운 실험을 얹는 구조**라, 하드웨어 조달이 실패해도 프로젝트가 무너지지 않습니다.
+- mass / inertia mismatch
+- servo delay
+- torque saturation
+- friction
+- IMU noise
+- encoder resolution
+- battery voltage drop
+- terrain variation
 
-## 🎯 Goal
+등이 실제 로봇의 동작을 바꿉니다.
 
-이번 시즌에 만들고 싶은 것.
+그래서 이 프로젝트의 질문은 단순히
 
-1. **재현 가능한 보행 학습 파이프라인** — 설치부터 정책 학습까지 README만 보고 완주
-2. **공개 정책 체크포인트** — 조건별 학습 정책 + 학습 곡선 + 설정 파일
-3. **4-way 비교 리포트** — 조건 A/B/C/D를 같은 평가 프로토콜로 비교, 학습 비용 포함
-4. **실물 배포 기록** — 시뮬↔실물 성능 격차와 실패 모드 분류
-5. **하드웨어 DIY 가이드** — 3D 출력부터 서보 캘리브레이션까지
+> **"Can the robot walk?"**
 
-> 완벽한 결과물보다, 함께 실험하고 실제로 걷는 무언가를 남기는 것을 목표로 합니다.
+가 아닙니다.
 
-## 🧪 What We Build
+우리가 묻는 것은
 
-### 대상 로봇과 환경
+> **"Why does a policy that walks in simulation fail in reality?"**
+
+입니다.
+
+---
+
+# 🎯 Research Questions
+
+프로젝트 전체를 관통하는 핵심 질문입니다.
+
+1. **Simulation success rate는 real-world success rate를 얼마나 예측하는가?**
+2. **Domain Randomization의 범위를 넓힐수록 실물 성능도 계속 좋아지는가?**
+3. **Actuator Modeling은 Domain Randomization과 비교해 Sim-to-Real gap을 얼마나 줄이는가?**
+4. **Simulation에서는 성공하지만 real robot에서 실패하는 대표적인 failure mode는 무엇인가?**
+5. **동일한 policy를 동일 조건에서 반복했을 때 결과는 얼마나 재현되는가?**
+6. **Low-cost biped에서도 기존 Sim-to-Real 연구 결과를 재현할 수 있는가?**
+
+Research Question은 프로젝트가 진행되면서 추가되거나 수정될 수 있습니다.
+
+---
+
+# 🎯 Goals
+
+이번 시즌의 목표 결과물입니다.
+
+1. **재현 가능한 보행 학습 파이프라인**  
+   설치부터 policy training까지 README만 보고 재현
+
+2. **공개 Policy Checkpoints**  
+   조건별 policy + config + training curve
+
+3. **4-way Controlled Comparison**  
+   A/B/C/D 조건을 동일한 evaluation protocol로 비교
+
+4. **Sim↔Real Gap Report**  
+   동일 policy의 simulation / real robot 결과 비교
+
+5. **Hardware DIY Guide**  
+   3D printing → assembly → calibration → deployment
+
+6. **Research Extension Foundation**  
+   선행연구·코드·실험 로그·failure data를 축적하여 희망자의 후속 공동연구와 arXiv로 연결
+
+> 완벽한 로봇보다 **재현 가능한 실험과 배울 수 있는 기록**을 남기는 것이 목표입니다.
+
+---
+
+# 🤖 What We Build
+
+## Target Platforms
 
 | 구분 | 내용 |
-|------|------|
-| 주 시뮬레이터 | MuJoCo + `microduck_rl` |
-| 주 대상 | Open Duck Mini (3D 프린팅 DIY) → 마이크로덕 |
-| 로봇팔 (선행 학습) | SO-ARM101 (FEETECH STS3215). LeRobot 생태계 감 잡기용 |
-| 프레임워크 | Hugging Face LeRobot |
-| 알고리즘 | PPO (대규모 병렬 롤아웃) |
-| 공개 | Hugging Face Hub (정책·설정), GitHub (코드·문서) |
+|---|---|
+| Simulator | MuJoCo + `microduck_rl` |
+| Main Biped | Open Duck Mini 계열 |
+| Follow-up | Micro Duck MD-01 등 low-cost biped |
+| Preliminary Robot Learning | SO-ARM101 + LeRobot |
+| Algorithm | PPO |
+| Policy / Dataset | Hugging Face Hub |
+| Code / Experiments | GitHub |
 
-로봇팔을 먼저 다루는 이유는, 보행보다 관측·행동 공간이 단순해서 LeRobot의 데이터 포맷과 배포 흐름을 익히기에 좋기 때문입니다. 여기서 익힌 흐름을 보행으로 옮깁니다.
+SO-ARM101은 walking robot의 최종 대상이 아니라 **Robot Learning pipeline을 빠르게 이해하기 위한 선행 실습**입니다.
 
-### 격차 좌표 — 프로젝트의 핵심 자산
+이를 통해
 
-모든 평가 실행에 아래 좌표를 부착합니다. 이 테이블이 이 프로젝트의 차별점입니다. "정책이 잘 걷는다"가 아니라 "어떤 조건에서 얼마나 걷는다"를 남기기 위한 축입니다.
+> **Teleoperate → Record → Train → Evaluate → Deploy**
 
-| 좌표 | 정의 | 측정 방법 |
-|------|------|-----------|
-| 지형 난이도 | 평지 / 경사 / 요철 높이(mm) | MuJoCo heightfield |
-| 질량·관성 오차 | 시뮬 모델 대비 실물 부품 실측 편차 | 저울 실측 + URDF 대조 |
-| 액추에이터 지연 | 명령–반응 지연(ms), 토크 포화 지점 | 서보 스텝 응답 측정 |
-| 마찰 계수 | 발바닥–바닥 정지/운동 마찰 | 경사판 측정 |
-| 관측 노이즈 | IMU 드리프트, 관절 엔코더 분해능 | 정지 상태 로깅 |
-| 전압 강하 | 배터리 잔량 구간별 실효 토크 | 주행 중 전압 로깅 |
+흐름을 경험한 뒤 locomotion RL로 확장합니다.
 
-**평가 프로토콜** — 직진 / 방향 전환 / 외란 복귀 / 연속 보행(30초) 4종을 항상 전부 보고합니다. **W4 말에 동결하고 이후 변경을 금지합니다.** 프로토콜을 나중에 손대면 이전 결과를 전부 다시 돌려야 합니다.
+---
 
-### 비교 대상 (4-way)
+# 🔬 Experimental Design
 
-| 구분 | 내용 | 담당 트랙 |
-|------|------|-----------|
-| **A. Baseline** | 기본 PPO, 랜덤화 없음, 기본 보상 | 시뮬·정책 |
-| **B. 보상 개선** | 보상 함수 재설계(에너지·대칭성·발디딤 항 추가) | 보상·랜덤화 |
-| **C. + 도메인 랜덤화** | 질량·마찰·지연·지형 랜덤화 적용 | 보상·랜덤화 |
-| **D. + 액추에이터 모델링** | 서보 지연·토크 곡선을 시뮬에 반영 | 하드웨어·배포 |
+## Four Conditions
 
-각 조건을 **시뮬에서 측정하고, 같은 정책을 실물에 올려 다시 측정**합니다. 4개 조건 × 2개 환경 = 8개 셀이 결과표의 뼈대입니다.
+동일한 evaluation protocol을 사용하여 네 조건을 비교합니다.
 
-### 측정 지표
+| Condition | Description |
+|---|---|
+| **A. Baseline** | 기본 PPO + 기본 reward + randomization 없음 |
+| **B. Reward Redesign** | energy / symmetry / foot placement 등 reward 개선 |
+| **C. Domain Randomization** | mass / friction / delay / terrain randomization |
+| **D. Actuator Modeling** | 실제 servo delay / torque 특성을 simulation에 반영 |
 
-| 축 | 지표 |
-|------|------|
-| 기본 성능 | 성공률(넘어지지 않고 목표 거리 도달), 평균 속도(m/s) |
-| 효율 | 이동 비용(CoT, Cost of Transport), 관절 토크 적분 |
-| 안정성 | 몸통 자세 RMS(roll/pitch), 외란 후 복귀 시간 |
-| Sim-to-Real 격차 | 동일 정책의 시뮬 성공률 − 실물 성공률 |
-| 층화 분석 | 위 격차 좌표 구간별 성능 기울기 |
-| 재현성 | 동일 정책 10회 반복 시 성공률 분산 |
-| 견고성 | 실물 교란 조건별 성공률 |
-| 학습 비용 | 학습 스텝 수, wall-clock 시간, GPU-시간 |
+각 policy를
 
-**핵심 가설** — 도메인 랜덤화(C)는 시뮬 성능을 떨어뜨리지만 실물 성능을 올린다. 그리고 액추에이터 모델링(D)은 랜덤화보다 적은 비용으로 비슷한 격차 감소를 준다. 사실이 아니어도 그 자체가 결과입니다.
+**Simulation → Real Robot**
 
-### 실물 교란 감사 — 하드웨어 트랙 고유 기여
+순서로 동일하게 평가합니다.
 
-실물 로봇에 통제된 교란을 가하고 정책의 복귀율을 측정합니다. 구현 부담이 낮고 현업의 실패 모드와 직결됩니다.
+따라서 기본 결과 구조는
 
-- **외력 교란** — 측면에서 일정 힘으로 밀기 (추 낙하 방식으로 재현성 확보)
-- **지형 교란** — 두께 5/10/15mm 판재를 보행 경로에 배치
-- **페이로드 교란** — 몸통에 50/100g 추가 질량
-- **마찰 교란** — 바닥재 교체 (매트 / 마루 / 아크릴)
+> **4 Conditions × 2 Environments = 8 Experimental Cells**
 
-### 자원 3단계
+입니다.
 
-무거운 실험을 선택 과제로 분리해, 자원 사정이 바뀌어도 프로젝트가 살아남게 설계합니다.
+---
 
-| 단계 | 내용 | 자원 | 이번 기수 |
-|------|------|------|-----------|
-| 1단계 (필수) | 로봇팔·보행 MuJoCo 시뮬 학습, 조건 A·B 전체 | CPU / 무료 GPU | ✅ 코어 |
-| 2단계 (권장) | 조건 C·D, 대규모 병렬 롤아웃, 랜덤화 스윕 | 소형 GPU | ✅ 코어 |
-| 3단계 (도전) | 로봇팔 실물 배포 → 보행 실물 배포, DAgger 교정 데이터 수집, 새 동작(계단·회전) | 실물 로봇 | 🔁 DIY 트랙 |
+# 📐 Sim-to-Real Gap Coordinates
 
-실물 트랙은 별도 과제로 분리돼 있어, 부품 조달이 지연돼도 시뮬레이션 트랙의 일정과 결과물은 무손상입니다. 마이크로덕은 물량 부족으로 원하는 일정에 받지 못하므로, 이번 기수의 실물 보행 로봇은 **3D 프린팅 Open Duck Mini**를 전제로 합니다.
+단순히 "잘 걸었다"라고 보고하지 않습니다.
 
-### 축소 경로 — 자원이 부족할 때
+모든 실험에 다음 조건을 기록합니다.
 
-무엇이 빠지든 핵심 기여(4-way 비교 · 격차 좌표)가 남도록 설계돼 있습니다. 아래는 대비책이 아니라 처음부터 열려 있는 경로입니다.
+| Coordinate | Definition | Measurement |
+|---|---|---|
+| Terrain | 평지 / 경사 / 요철 | MuJoCo heightfield / real surface |
+| Mass & Inertia | simulation 대비 실제 편차 | 실제 부품 측정 |
+| Actuator Delay | command-response delay | servo step response |
+| Torque Limit | saturation point | servo measurement |
+| Friction | foot-ground friction | incline test |
+| Observation Noise | IMU / encoder noise | stationary logging |
+| Voltage Drop | battery state에 따른 변화 | runtime voltage logging |
 
-| 상황 | 경로 | 남는 것 |
-|------|------|---------|
-| **하드웨어 전무** | 시뮬레이션 트랙만으로 완주 | 조건 A–D 비교와 격차 좌표 측정은 시뮬 안에서 성립. '이전 검증' 항목만 비고 결과는 남음 |
-| **보행 실물 지연** | 로봇팔 4-way 결과를 완결된 결과물로 확정. 보행은 시뮬 + 서기·제자리 걸음까지만 보고 | 로봇팔 전체 결과 + 보행 시뮬 결과. 전진 보행은 시즌 2로 이관 |
-| **로봇팔도 확보 불가** | 도달 태스크를 시뮬 전용으로 두고, 실물 검증 자리를 **서보 1개 단위 스텝 응답 측정**으로 대체 | 서보 하나만 있어도 액추에이터 모델링의 핵심 실측값은 확보됨 |
+이 좌표를 이용하여 단순 평균 성능이 아니라
 
-세 경로 모두 범위만 줄이고 뼈대는 건드리지 않습니다. 어느 쪽으로 빠지든 발표할 결과가 있습니다.
+> **어떤 현실 조건에서 policy가 무너지는가**
 
-## 🗺️ Weekly Roadmap
+를 분석합니다.
 
-12주 코어 + 2주 버퍼 · 2026.10.04 – 2027.01.09
+---
 
-주차는 **일요일 시작, 토요일 종료**입니다. 각 주차 첫날 일요일 21:00–23:00 정기 모임에서 지난 주 Issue를 닫고 이번 주 Issue를 엽니다. 킥오프는 W1 첫 모임인 **2026.10.04(일)**입니다.
+# 📊 Evaluation Protocol
 
-각 주차는 GitHub Milestone과 `week/WXX` 라벨로 연결됩니다. → [GitHub 운영 규약](#-github-운영-규약)
+W4에서 다음 평가 protocol을 동결합니다.
 
-### Phase 1 — 기반 다지기 (W1–W4, 전원 공통)
+1. **Straight Walking**
+2. **Turning**
+3. **Perturbation Recovery**
+4. **Continuous Walking — 30 sec**
 
-실력 편차를 흡수하고 적성을 파악하는 구간입니다. 트랙 배정은 W4 말에 합니다.
+프로토콜 동결 이후에는 가능한 한 동일한 조건으로 모든 policy를 평가합니다.
 
-| Week | 기간 | 주제 | 주요 활동 | 게이트 |
-|------|------|------|-----------|--------|
-| **W1** | 10.04–10.10 | OT | 킥오프, RL·보행 개요. MuJoCo·microduck_rl 설치. 팀 구성. **GPU 실물 확보 확인**, 3D 프린터 접근 가능 인원 파악, 부품 예산 상한 숫자로 확정. 팀 전체 일정 취합(시험기간 겹침 확인) | 🚦 **자원 게이트** — 2·3단계 실행 여부 확정 |
-| **W2** | 10.11–10.17 | PPO 기초 | 1인 1편 논문 리뷰 발표. 기본 보행 재현. **Open Duck Mini 부품 주문** (여기서 밀리면 W9 실물 구동 불가) | 부품 리드타임 확인 |
-| **W3** | 10.18–10.24 | 대규모 병렬 RL 보행 | 보행 정책 학습, 보상 곡선 분석. SO-ARM101로 LeRobot 데이터 포맷 실습 | — |
-| **W4** | 10.25–10.31 | 보상 설계 | 기본 동작 재학습. **평가 프로토콜 4종 확정 및 동결.** 격차 좌표 6종 정의 확정. 3D 출력 시작. 트랙 배정 | 🧊 **동결 게이트** — 프로토콜 변경 금지, 트랙 확정 |
+---
 
-### Phase 2 — 병렬 개발 (W5–W8, 트랙별)
+# 📏 Metrics
 
-세 트랙이 동시에 진행됩니다. 페어로 작업하고 트랙 간 이동을 허용합니다.
+| Category | Metric |
+|---|---|
+| Performance | success rate / velocity |
+| Efficiency | Cost of Transport / torque integral |
+| Stability | body roll/pitch RMS |
+| Recovery | perturbation recovery time |
+| Sim-to-Real | simulation success − real success |
+| Robustness | perturbation condition별 success |
+| Reproducibility | 동일 policy 반복실험 분산 |
+| Training Cost | steps / wall-clock / GPU-hours |
 
-| Week | 기간 | 주제 | 시뮬·정책 | 보상·랜덤화 | 하드웨어·배포 |
-|------|------|------|-----------|-------------|---------------|
-| **W5** | 11.01–11.07 | 모션 스타일 (BDX 계열) | 조건 A 학습 안정화, seed 고정 | 새 동작 설계, 보상 항 ablation | 출력 부품 검수, 조립 시작 |
-| **W6** | 11.08–11.14 | CoRL 2026 논문 리뷰 | 조건 B 학습, 학습 곡선 정리 | 랜덤화 범위 스윕 설계 | **출력 완료**, 서보 배선 |
-| **W7** | 11.15–11.21 | Sim-to-Real: 도메인 랜덤화 | 조건 C 학습 | 랜덤화 적용·비교표 | **조립 완료**, 실물 URDF 실측 대조 |
-| **W8** | 11.22–11.28 | 액추에이터 모델링 | 조건 D 학습, 강건성 평가 | 랜덤화 vs 모델링 비교 | **서보 캘리브레이션**, 지연·토크 실측 |
+### Repeated Trials
 
-> ⚠️ **W8이 최대 부하 지점입니다.** 조건 D 학습과 실물 캘리브레이션이 겹칩니다. 캘리브레이션 실측값이 나와야 D 조건을 학습할 수 있으므로, 하드웨어 트랙의 W7 조립 완료가 늦어지면 D가 통째로 밀립니다.
+핵심 조건은 가능하면 **10회 반복 측정**합니다.
 
-> 🦴 **W8 말 = 최소 척추 완주 시점.** 아래 5단계는 실물 없이 완주 가능합니다. 여기까지가 결과물의 절반이며, 이후 실물 트랙이 실패해도 발표할 결과가 남습니다.
->
-> ① MuJoCo·microduck_rl 환경 구축 → ② PPO 기본 보행 학습 → ③ 평가 프로토콜 4종 고정 → ④ 조건 A–D 시뮬 학습 → ⑤ 조건별 성능·학습 비용 비교표 생성
+한 번 걷는 것과 **반복해서 걷는 것**은 다른 문제입니다.
 
-### Phase 3 — 실물 배포와 비교 (W9–W11)
+> **Reproducibility itself is a result.**
 
-| Week | 기간 | 주제 | 시뮬·정책 | 보상·랜덤화 | 하드웨어·배포 |
-|------|------|------|-----------|-------------|---------------|
-| **W9** | 11.29–12.05 | 실패 사례 분석 | 정책 개선, 재학습 | 실패 조건 재현 실험 | **실물 첫 구동**, 조건 A 배포 |
-| **W10** | 12.06–12.12 | 결과 중간 리뷰 | 최종 정책 정리 | 격차 좌표 층화 분석 | 조건 B·C·D 실물 배포, 반복 측정 |
-| **W11** | 12.13–12.19 | 시뮬↔실물 격차 토론 | 최종 지표표 확정 🧊 **동결 게이트** | 로그 기반 원인 추적 | 교란 감사 4종, 실패 모드 분류 |
+---
 
-### Phase 4 — 공개 및 정리 (W12–W14)
+# 💥 Failure Is Data
 
-| Week | 기간 | 주요 활동 | 결과물 |
-|------|------|-----------|--------|
-| **W12** | 12.20–12.26 | 최종 발표. 오픈소스 정비 — README(설치·실행·재현), CONTRIBUTING.md, Issue/PR 템플릿, MIT license, 재현 예제 노트북 1개. **Hugging Face Hub 공개**. 시연 영상 편집 | 공개 저장소, HF 정책, 시연 영상 |
-| **W13** | 12.27–01.02 | 🔧 **버퍼 주간** (연말). 밀린 작업 흡수, 재현 검증 — 새 환경에서 README만 보고 예제 노트북 완주 | 재현 검증 로그 |
-| **W14** | 01.03–01.09 | 시즌 2(마이크로덕 실물) 기획. 확장 계획 정리. 연장 트랙 인수인계 | 시즌 2 기획안, 회고 기록, 연장 트랙 담당자 확정 |
+실패를 제거하지 않고 분류합니다.
 
-> W13이 연말과 정확히 겹칩니다. 버퍼 주간으로 설계했지만 실질적으로 거의 비는 주가 될 가능성이 높으니, 공개 작업은 W12에 끝내는 것을 목표로 잡습니다.
+예:
 
-## 🧭 Milestones ↔ GitHub
+- Fall
+- No Progress
+- Oscillation
+- Tracking Error
+- Foot Slip
+- Recovery Failure
+- Actuator Saturation
+- Observation Failure
 
-가짜연구소 플랫폼의 마일스톤 5칸과 GitHub Milestone을 1:1로 맞춥니다. 완료 조건은 빌더 확인과 관리자 승인이 가능하도록 눈으로 검증되는 항목만 적었습니다.
+> **Success is a result. Failure is also data.**
 
-| # | GitHub Milestone | Week | Due | 완료 조건 |
-|---|------------------|------|-----|-----------|
-| 1 | **M1 · 환경 구축과 기초** | W1–W4 | 2026-10-31 | 전원 환경 세팅 PR 머지 · 환경 세팅 스크린샷 · 논문 발표 슬라이드 1인 1회 · 평가 프로토콜 동결 커밋 · 트랙 배정표 공개 |
-| 2 | **M2 · 시뮬 보행 정책** | W5–W6 | 2026-11-14 | 학습 곡선 그래프 · 보상 설계 리포트 · 시뮬 정책 영상 · **성공률 80% 이상** |
-| 3 | **M3 · Sim-to-Real 기법과 실물 준비** | W7–W9 | 2026-12-05 | 도메인 랜덤화 결과 리포트 · **새 동작 2개 이상** 시연 영상 · 하드웨어 조립 가이드(DIY) · 서보 캘리브레이션 데이터 |
-| 4 | **M4 · 실물 배포와 격차 분석** | W10–W11 | 2026-12-19 | 실물 시연 영상 · Sim-to-Real 격차 분석 보고서 · **교정 데이터 1,000 프레임 이상** · 실패 모드 분류표 · 수치 동결 태그 |
-| 5 | **M5 · 공개와 재현** | W12–W14 | 2027-01-09 | 최종 발표 자료 · Hugging Face 링크 · GitHub 저장소 public · **블로그 2편 이상** · 시즌 2 기획안 · 새 환경에서 README만 보고 노트북 완주 |
+실물 실패 영상과 sensor / action log를 가능한 한 함께 보존합니다.
 
-### 트랙별 완료 조건 (M2–M5)
+---
 
-M1은 트랙 배정 이전 구간이라 전원이 같은 과제를 수행합니다. 아래는 트랙이 갈린 이후의 담당별 완료 조건입니다.
+# 🧪 Real-world Perturbation Audit
 
-| Milestone | 시뮬·정책 | 보상·랜덤화 | 하드웨어·배포 |
-|-----------|-----------|-------------|---------------|
-| **M2** (W5–6) | 조건 A·B 학습 완료 · seed 고정 분산 측정 · 학습 곡선 | 보상 항 ablation 표 · 새 동작 1개 설계 | 부품 출력 완료 · 조립 진행 로그 |
-| **M3** (W7–9) | 조건 C·D 학습 완료 | 랜덤화 범위 스윕 결과 · 랜덤화 vs 모델링 비교표 | 조립·배선 완료 · 서보 지연·토크 실측 · 실물 첫 구동 영상 |
-| **M4** (W10–11) | 최종 지표표 산출 | 격차 좌표 구간별 층화 분석 | 조건 4종 실물 배포 · 반복 측정 · 교란 감사 4종 · DAgger 교정 데이터 |
-| **M5** (W12–14) | `simulation/` 정리 · 결과 재현 스크립트 · 재현 예제 노트북 1개 | `docs/` 실험 리포트 정리 | `hardware/` 조립 가이드 · 시연 영상 · good first issue 발행 |
+실제 로봇에 통제된 perturbation을 가합니다.
 
-### 압축해도 유지해야 하는 4가지
+| Perturbation | Example |
+|---|---|
+| External Force | 측면 외력 |
+| Terrain | 5 / 10 / 15 mm obstacle |
+| Payload | +50 / +100 g |
+| Friction | mat / floor / acrylic |
 
-| 항목 | 이유 |
-|------|------|
-| **W2 부품 주문** | 3D 출력과 배송 리드타임 때문에, 여기가 밀리면 W9 실물 구동이 통째로 사라집니다. 유일하게 되돌릴 수 없는 지점 |
-| **W4 평가 프로토콜 동결** | 프로토콜이 바뀌면 이전 학습 결과를 전부 다시 측정해야 합니다 |
-| **반복 측정 10회** | Sim-to-Real 격차의 분산이 이 프로젝트의 고유 기여입니다. 1회로 줄이면 "우연히 걸었다"와 구분되지 않습니다 |
-| **조건 A 유지** | 랜덤화·모델링의 효과는 랜덤화 없는 기준선이 있어야만 말할 수 있습니다 |
+이를 통해 단순 walking success가 아니라 **robustness와 recovery**를 비교합니다.
 
-## 🔁 연장 트랙 (기수 종료 후)
+---
 
-12주 코어는 저장소·정책 공개까지를 목표로 합니다. 아래는 남고 싶은 인원이 이어서 진행합니다.
+# 🧱 Resource Levels
 
-| 시기 | 할 일 | 담당 |
-|------|-------|------|
-| 2027.01 | 마이크로덕 실물 확보, Open Duck Mini 결과 이식 | 희망자 |
-| 2027.01 | 계단 오르기 · 지형 적응 도전 실험 | 희망자 |
-| 2027.02 | 기술 블로그 시리즈 정리, 커뮤니티 발표 | 집필 담당 |
-| 2027.상반기 | 시즌 2 — 마이크로덕 실물 + OMX 로봇팔 구성 | 시즌 2 빌더 |
+모든 참가자가 동일한 하드웨어나 GPU를 가질 필요는 없습니다.
 
-## 👥 Team
+| Level | 내용 | 이번 기수 |
+|---|---|---|
+| **Level 1** | MuJoCo + PPO + A/B | Core |
+| **Level 2** | C/D + parallel rollout + randomization | Core |
+| **Level 3** | Real robot deployment + perturbation | Challenge |
 
-### Core Team
+하드웨어 조달이 늦어져도 simulation research는 계속 진행합니다.
 
-| Role | Name | 담당 |
-|------|------|------|
-| 🧭 Builder | @andrewJYjang | 프로젝트 리딩, 평가 설계 · 시뮬·정책 트랙 참여 |
-| 🦿 Runner | @name | 시뮬·정책 |
-| 🎯 Runner | @name | 보상·랜덤화 |
-| 🎯 Runner | @name | 보상·랜덤화 |
-| 🔧 Runner | @name | 하드웨어·배포 |
-| 🔧 Runner | @name | 하드웨어·배포 |
+---
 
-**리더 소개** — Physical AI 연구그룹(DR4R Lab) 운영 · SO-ARM101 / XLeRobot / LeKiwi 실기 경험 · R2B International Community 운영. 이번 기수에서는 로봇 학습의 엔드-투-엔드 경험을 함께 나누는 것을 지향합니다.
+# 🛟 Fallback Paths
 
-### 트랙 배치 (총 6명)
+| 상황 | 대체 경로 |
+|---|---|
+| Hardware 없음 | A–D Simulation comparison |
+| Biped 조립 지연 | Simulation + servo-level characterization |
+| Full walking 실패 | Standing / stepping / limited locomotion |
+| GPU 부족 | randomization sweep 범위 축소 |
+| Real deployment 실패 | failure analysis 자체를 결과로 기록 |
 
-| 트랙 | 인원 | 필요 수준 |
-|------|------|-----------|
-| 시뮬·정책 | 2명 (빌더 포함) | Python 가능, RL 경험 있으면 좋음 |
-| 보상·랜덤화 | 2명 | Python 가능, 실험 설계에 흥미 |
-| 하드웨어·배포 | 2명 | 3D 프린터 접근 가능 또는 조립 경험, 코딩 입문 가능 |
+범위는 줄일 수 있지만 **실험의 뼈대는 유지**합니다.
 
-W1–W4는 전원 공통 과정으로 실력 편차를 흡수하고 적성을 파악합니다. W4 말에 희망과 적성을 반영해 트랙을 배정하며, 페어로 진행하고 트랙 간 이동을 허용합니다. **트랙별 2인 배치는 권고가 아니라 필수 조건**입니다 — 1인 트랙은 그 사람이 빠지면 결과표의 한 열이 사라집니다. 실제 비율은 W4 희망 조사 결과에 따라 조정합니다.
+---
 
-### 실력 편차 대응
+# 📚 Learning & Research Flow
 
-- 입문자용 온보딩 문서(환경 세팅, git 기초, 프로젝트 구조)
-- 하드웨어 트랙은 코딩 부담이 낮으면서 프로젝트의 차별점(실물 배포)을 직접 만듭니다
-- W3 SO-ARM101 실습으로 전원이 최소한의 로봇 코드 경험 확보
+이 프로젝트는 정해진 논문을 발표하고 끝나는 스터디가 아닙니다.
 
-## 🧑‍🤝‍🧑 How We Work
+우리가 지향하는 흐름은 다음과 같습니다.
 
-**Explore → Design → Build → Test → Improve → Share**
+> **Learn → Read → Question → Reproduce → Build → Simulate → Train → Deploy → Measure → Improve → Share**
 
-### 우리의 원칙
+논문도 같은 방식으로 사용합니다.
 
-- 🧪 **작은 것부터 만들어봅니다.** 넘어지는 로봇도 결과입니다.
-- 📖 **과정과 실패도 기록합니다.** Negative result가 곧 결과인 설계입니다.
-- 🤝 **서로의 성장을 돕습니다.** 빌더가 지시하고 러너가 수행하는 구조가 아닙니다. 모든 트랙이 결과표의 한 열을 직접 소유하고, 리뷰는 양방향으로 흐릅니다.
+> **Seed Paper → Research Question → Related Papers → Authors / Labs → Code → Reproduction → Our Experiment**
 
-### 운영 방식
+---
 
-- 매주 **일요일 21:00–23:00** 정기 모임 — 진행 공유 + 페어 작업. 필요 시 추가로 모여 작업
-- 모든 작업은 GitHub Issue로 관리, 주차별 마일스톤 운영
-- PR은 최소 1인 리뷰 후 머지
-- 결석·이탈 대비 — 모든 작업을 문서화해 인계 가능하도록 유지
-- **문서화는 상시 작업입니다.** README와 실험 리포트를 W5부터 PR마다 조금씩 채웁니다. 마지막 주에 몰아 쓰면 반드시 터집니다.
+# 🗺️ Weekly Roadmap
 
-## 🔗 GitHub 운영 규약
+## Phase 1 — Foundations & Research Questions
 
-주차 계획이 GitHub에서 그대로 추적되도록 아래 규약을 씁니다.
+### W1–W4 · Everyone Together
 
-**Milestone** — 위 Milestones 표의 M1~M5. Due date를 그대로 설정합니다.
+| Week | Date | Topic | Main Activities |
+|---|---|---|---|
+| **W1** | 10.04–10.10 | Kickoff | RL / Robot Learning / Sim-to-Real overview · MuJoCo setup · resource check |
+| **W2** | 10.11–10.17 | PPO + Research Question | **Seed Paper 탐색 · 관심 Research Question 공유 · 관련 논문/연구실 탐색 · 기본 walking reproduction · Open Duck Mini 부품 주문** |
+| **W3** | 10.18–10.24 | Parallel RL | locomotion training · reward curves · SO-ARM101 / LeRobot data workflow |
+| **W4** | 10.25–10.31 | Reward & Experimental Design | evaluation protocol freeze · gap coordinates freeze · 3D printing · track selection |
 
-**Label**
+### W4 Freeze Gate
 
-| 종류 | 라벨 | 용도 |
-|------|------|------|
-| 주차 | `week/W01` … `week/W14` | 일요일 정기 모임에서 부여, 다음 일요일 모임에서 정리 |
-| 트랙 | `track/sim` · `track/reward` · `track/hardware` | W4 트랙 배정 이후 사용 |
-| 유형 | `type/task` · `type/bug` · `type/question` · `type/docs` | Issue 템플릿에서 자동 부여 |
-| 게이트 | `gate/freeze` | W4 프로토콜 동결, W11 수치 동결 |
-| 외부 기여 | `good first issue` · `help wanted` | M5에서 발행 |
+W4 이후에는 핵심 evaluation protocol을 가능한 한 변경하지 않습니다.
 
-**Issue 제목** — `[WXX][track] 작업 내용` (예: `[W06][sim] 조건 B 학습 및 학습 곡선 정리`)
+---
 
-**Branch** — `wXX/track/short-slug` (예: `w06/sim/condition-b-training`)
+# ⚙️ Phase 2 — Parallel Development
 
-**PR** — 관련 Issue를 `Closes #NN`으로 연결. 주차 라벨과 마일스톤을 Issue에서 상속합니다.
+### W5–W8
 
-**주차 운영 루틴**
+| Week | Topic | Simulation / Policy | Reward / Randomization | Hardware / Deployment |
+|---|---|---|---|---|
+| **W5** | Motion Style | A 안정화 | reward ablation | assembly start |
+| **W6** | Recent Research | B training | randomization sweep design | printing / wiring |
+| **W7** | Domain Randomization | C training | DR comparison | assembly / URDF measurement |
+| **W8** | Actuator Modeling | D training | C vs D analysis | servo calibration / delay / torque |
 
-1. **일요일 21:00 모임 전반** — 지난 주차 Issue 정리, 미완 항목은 이번 주차 라벨로 이월. `/docs/weekly/WXX.md`에 진행 로그 기록
-2. **모임 후반** — 트랙별로 이번 주 Issue를 열고 `week/WXX` + Milestone 부여, 페어 작업
-3. **주중** — PR로 작업, 최소 1인 리뷰. 다음 일요일 모임에서 닫음
+### Minimum Spine
 
-## 📁 Repository 구조
+W8까지 다음이 완료되면 실물이 없어도 프로젝트의 기본 연구 구조는 살아 있습니다.
 
+> Environment  
+> → PPO Baseline  
+> → Frozen Evaluation  
+> → A/B/C/D Simulation  
+> → Controlled Comparison
+
+---
+
+# 🦿 Phase 3 — Real Robot & Sim-to-Real
+
+### W9–W11
+
+| Week | Topic | Main Activities |
+|---|---|---|
+| **W9** | First Real Deployment | real robot first run · condition A · failure logging |
+| **W10** | Controlled Comparison | B/C/D deployment · repeated trials |
+| **W11** | Sim↔Real Gap | final metrics · perturbation audit · failure taxonomy · result freeze |
+
+W11에서 핵심 결과 수치를 동결합니다.
+
+---
+
+# 📦 Phase 4 — Open Source & Research Transition
+
+### W12–W14
+
+| Week | Date | Main Activities | Output |
+|---|---|---|---|
+| **W12** | 12.20–12.26 | final presentation · README · configs · evaluation code · demo · HF release | Public repository |
+| **W13** | 12.27–01.02 | buffer / reproducibility test | Reproduction log |
+| **W14** | 01.03–01.09 | **Core 결과 동결 · 공동연구팀 구성 · Publication Go/No-Go · Micro Duck 후속실험 설계** | **Core release · Research questions · extension team** |
+
+---
+
+# 🧭 Milestones
+
+| # | Milestone | Due | Completion |
+|---|---|---|---|
+| **M1** | Environment & Research Question | 10.31 | setup · Seed Paper 탐색 · Research Question 초안 · evaluation freeze |
+| **M2** | Simulation Policy | 11.14 | A/B policies · training curves · reward analysis |
+| **M3** | Sim-to-Real Preparation | 12.05 | C/D · hardware assembly · actuator calibration |
+| **M4** | Real Deployment & Gap Analysis | 12.19 | real deployment · repeated trials · failure taxonomy · result freeze |
+| **M5** | Open Source & Research Transition | 01.09 | reproducibility · GitHub/HF release · Research Question 정리 · Publication Go/No-Go |
+
+---
+
+# 👥 Research Tracks
+
+W1–W4는 공통으로 진행하고 이후 관심과 역량에 따라 트랙을 나눕니다.
+
+### ① Learning / Policy
+
+- PPO
+- training
+- policy evaluation
+- reproducibility
+- checkpoint management
+
+### ② Sim-to-Real
+
+- reward design
+- domain randomization
+- actuator modeling
+- gap analysis
+- experiment design
+
+### ③ Robot / Deployment
+
+- 3D printing
+- assembly
+- calibration
+- real deployment
+- perturbation experiments
+- failure logging
+
+트랙은 고정된 직책이 아닙니다.
+
+필요하면 이동하고 서로의 실험을 함께 리뷰합니다.
+
+---
+
+# 🧭 Milestone Principles
+
+일정이 압축되어도 다음은 가능하면 유지합니다.
+
+| Item | Why |
+|---|---|
+| **W2 Hardware Order** | 실물 실험 일정 확보 |
+| **W4 Evaluation Freeze** | 조건 간 공정한 비교 |
+| **Baseline A** | C/D의 효과를 말하기 위한 기준 |
+| **Repeated Trials** | 우연과 재현 가능한 성능을 구별 |
+| **Failure Logs** | Sim-to-Real 원인 분석의 핵심 |
+
+---
+
+# 🔁 Research Extension
+
+12주 Core의 목표는
+
+> **재현 가능한 Sim-to-Real 실험 + 공개 저장소**
+
+까지입니다.
+
+그러나 연구 준비는 기수 종료 후 갑자기 시작하지 않습니다.
+
+**2026년 10월부터** Seed Papers, 관련 연구, 연구실, 공개 코드 및 주요 venue를 탐색합니다.
+
+> **Core Project → Open Source → Joint Research → arXiv → Research Community**
+
+Core에서 의미 있고 재현 가능한 결과가 확보되면 W14에서 **Publication Go/No-Go**를 검토합니다.
+
+희망자는 이후 공동연구팀으로 계속 참여합니다.
+
+---
+
+# 🔍 Research Preparation — Start Now
+
+Seed Papers는 논문을 한 편씩 배정하기 위한 목록이 아닙니다.
+
+Research Question을 찾기 위한 **starting points**입니다.
+
+각 참가자는 관심 분야에서 다음 흐름을 탐색할 수 있습니다.
+
+> **Seed Paper → Question → Related Papers → Authors → Lab → Code → Our Experiment**
+
+관심 있는 연구를 발견하면 다음을 확인합니다.
+
+- What problem did they solve?
+- What robot did they use?
+- What simulator?
+- What assumptions?
+- Is the code public?
+- Can we reproduce it?
+- What changes on a low-cost robot?
+- What can we measure differently?
+
+---
+
+# 📖 Seed Papers & Research Directions
+
+## A. Reinforcement Learning Foundations
+
+대표 출발점:
+
+- Schulman et al., **Proximal Policy Optimization Algorithms** (2017)
+
+Questions:
+
+- Why is PPO widely used for locomotion?
+- How sensitive is locomotion to reward design?
+- How large is seed-to-seed variance?
+
+---
+
+## B. Legged Locomotion & Sim-to-Real
+
+Explore:
+
+- Sim-to-Real locomotion
+- Domain Randomization
+- Actuator Modeling
+- System Identification
+- Robust Locomotion
+
+Questions:
+
+> Does more Domain Randomization always improve real-world performance?
+
+> When does Actuator Modeling outperform broad randomization?
+
+> What dominates the reality gap on low-cost servos?
+
+---
+
+## C. Parallel Robot Learning
+
+Explore:
+
+- parallel simulation
+- GPU rollout
+- scalable RL
+- locomotion training
+
+Question:
+
+> Does faster training actually produce better real-world policies?
+
+---
+
+## D. Low-cost & Open-source Robotics
+
+Explore:
+
+- LeRobot
+- Open Duck Mini
+- Micro Duck
+- open-source locomotion systems
+
+Question:
+
+> **How much modern Robot Learning can be reproduced on low-cost hardware?**
+
+---
+
+## E. Recent Research
+
+프로젝트 기간 동안 다음 커뮤니티의 최신 연구를 지속적으로 살펴봅니다.
+
+- ICRA
+- CoRL
+- RSS
+- IEEE-RAS Humanoids
+- related workshops
+
+관심 키워드:
+
+`Legged Locomotion` · `Humanoid` · `Sim-to-Real` ·  
+`Domain Randomization` · `Actuator Modeling` ·  
+`System Identification` · `Robust Control` ·  
+`Failure Recovery` · `Physical AI` · `Robot Foundation Models`
+
+특정 논문 목록은 고정하지 않습니다.
+
+새로운 연구가 나오면 Seed Papers에 추가합니다.
+
+---
+
+# 🔎 Find Your Research Question
+
+논문 한 편을 완벽하게 설명하는 것보다 **좋은 질문 하나를 발견하는 것**을 중요하게 봅니다.
+
+예:
+
+> Domain Randomization을 많이 적용할수록 항상 실물 성능이 좋아질까?
+
+> 저가 servo의 delay를 정확히 모델링하면 randomization을 줄일 수 있을까?
+
+> Simulation에서 성공하고 real robot에서 실패하는 조건을 자동 분류할 수 있을까?
+
+> 같은 policy를 10회 실행했을 때 발생하는 분산 자체가 Sim-to-Real gap의 일부일까?
+
+질문이 생기면 그 질문을 따라 새로운 논문을 찾아갑니다.
+
+---
+
+# 📝 My Research Interest
+
+참가자는 `docs/literature/`에 자신의 연구 관심을 기록할 수 있습니다.
+
+```text
+Name / GitHub ID:
+
+Research Topic:
+
+Research Question:
+
+Seed Paper:
+
+Related Papers:
+
+Interesting Authors / Labs:
+
+Open-source Code:
+
+What I want to reproduce:
+
+What I want to test on our robot:
 ```
+
+Research Question은 언제든 바뀔 수 있습니다.
+
+---
+
+# 🧪 From Paper to Experiment
+
+논문 스터디의 결과가 슬라이드에서 끝나지 않도록 합니다.
+
+> **Read → Question → Reproduce → Modify → Experiment → Measure → Share**
+
+논문 결과가 재현되지 않아도 괜찮습니다.
+
+재현 실패의 원인이
+
+- environment
+- dependency
+- hardware
+- actuator
+- training setting
+- undocumented assumption
+
+중 무엇인지 기록하는 것 역시 의미 있는 결과입니다.
+
+---
+
+# 🚀 January 2027 — Joint Research Sprint
+
+Core 결과가 충분하다면 **2027년 1월을 집중 공동연구 기간**으로 운영합니다.
+
+참여는 선택 사항입니다.
+
+| Period | Focus | Output |
+|---|---|---|
+| **01.01–01.09** | Core 결과 동결 · Publication Go/No-Go · team formation | Research Question / Contributions |
+| **01.10–01.16** | missing experiments · repeated Sim/Real trials | Final experimental data |
+| **01.17–01.23** | statistics · Sim↔Real gap · failure taxonomy · Related Work | Figures / Tables |
+| **01.24–01.31** | joint writing · internal review · external feedback | **arXiv manuscript** |
+
+연구 기여는 여러 형태가 가능합니다.
+
+**RL / Reward / DR / Actuator Modeling / Hardware / Experiments / Data Analysis / Failure Analysis / Visualization / Literature / Writing**
+
+공동저자 여부와 순서는 단순 참가 여부가 아니라 **실제 연구 기여를 바탕으로 공동연구팀에서 논의**합니다.
+
+---
+
+# 📄 February 2027 — arXiv Target
+
+## 🎯 Target: February 2027 — arXiv Preprint
+
+Tentative research direction:
+
+> **Measuring and Reducing the Sim-to-Real Gap in Low-Cost Biped Locomotion**
+
+가능한 contribution 후보:
+
+1. **Low-cost Biped Sim-to-Real Evaluation Protocol**
+2. **Baseline / Reward / Domain Randomization / Actuator Modeling Controlled Comparison**
+3. **Quantitative Sim↔Real Gap Measurement**
+4. **Real-world Failure-mode Analysis**
+5. **Reproducible Open-source Code, Logs and Hardware Information**
+
+다만 contribution을 미리 결론 내리지는 않습니다.
+
+> **실험으로 확인된 결과만 research claim으로 발전시킵니다.**
+
+---
+
+# 🎓 Workshop & Conference Path
+
+Workshop이나 Conference는 **2027년 2월이 되어서 처음 찾지 않습니다.**
+
+프로젝트 초기부터 관련 연구와 venue를 함께 추적합니다.
+
+관심 커뮤니티:
+
+- ICRA
+- CoRL
+- RSS
+- IEEE-RAS Humanoids
+- Robot Learning / Sim-to-Real / Embodied AI / Physical AI Workshops
+
+흐름은 다음과 같습니다.
+
+> **Paper → Authors → Lab → Venue → CFP → Our Research**
+
+2027년 2월 이후에는 그때의 실제 CFP와 연구 결과를 함께 검토하여 **주제·완성도·일정이 맞는 Workshop / Conference에 후속 투고**를 검토합니다.
+
+arXiv가 끝이 아니라 다음 연구를 위한 출발점이 될 수 있습니다.
+
+---
+
+# 🌎 Global Research Exchange
+
+관련 분야를 연구하는 국내외 교수·연구자·현업 전문가와 **Research Conversation**을 추진할 수 있습니다.
+
+단순 초청 강연보다 다음 형태를 지향합니다.
+
+> **Guest Research Talk → Our Progress → Research Questions → Discussion → Feedback**
+
+우리도 연구자에게 질문합니다.
+
+> *Is this a meaningful research question?*
+
+> *What experiment are we missing?*
+
+> *How should we measure the Sim-to-Real gap?*
+
+> *What would make this result publishable?*
+
+외부 연구자는 참여 정도에 따라
+
+**Guest Researcher / Research Collaborator / Advisor**
+
+형태로 연구 질문, 실험 설계, 결과 해석 또는 후속 공동연구에 참여할 수 있습니다.
+
+---
+
+# 🤖 From Paper to Research Community
+
+논문을 읽었다면 저자와 연구실도 찾아봅니다.
+
+> **Paper → Researcher → Lab → Community → Conversation → New Research Question**
+
+국제 로봇 학회와 Workshop은 논문을 제출하는 장소인 동시에 **연구자를 직접 만나고 새로운 질문을 발견하는 장소**입니다.
+
+ICRA 2027 서울 개최도 이러한 research-community experience의 기회로 활용하고자 합니다.
+
+관심 논문의 연구자와 연구실을 미리 찾아보고, 관련 session / poster / workshop 등에 참여할 수 있습니다.
+
+행사 이후에는 팀 내부 **Research Review / Teach-back**으로 배운 내용을 공유하고 후속 실험과 연결합니다.
+
+---
+
+# 🗓️ Research & Publication Roadmap
+
+| Period | Stage | Target |
+|---|---|---|
+| **2026.10** | Seed Papers · literature / labs / venues 탐색 | Research Questions |
+| **2026.11** | A/B/C/D Simulation experiments | Controlled comparison |
+| **2026.12** | Real robot · repeated trials · failure analysis | Sim↔Real results |
+| **2026.12 말** | Open-source release | Reproducible repository |
+| **2027.01** | **Joint Research Sprint** | experiments + analysis + writing |
+| **2027.02** | **arXiv target** | Public preprint |
+| **2027.02 이후** | 당시 CFP + 연구 결과 검토 | Workshop / Conference challenge |
+| **2027.05** | Research community participation | Research exchange / Teach-back |
+| **Beyond** | Micro Duck · new research questions | Follow-up research / Season 2 |
+
+---
+
+# 👥 Team
+
+## Core Team
+
+| Role | Name | Focus |
+|---|---|---|
+| 🧭 Builder | @andrewJYjang | project coordination · experiment design · policy |
+| 🦿 Runner | TBD | Learning / Policy |
+| 🎯 Runner | TBD | Sim-to-Real |
+| 🔧 Runner | TBD | Robot / Deployment |
+
+실제 구성은 참여 상황과 W4 관심 조사에 따라 조정합니다.
+
+중요한 것은 사람 수를 맞추는 것보다 **실험과 지식을 공유하여 특정 한 사람에게만 작업이 종속되지 않도록 하는 것**입니다.
+
+---
+
+# 🧑‍🤝‍🧑 How We Work
+
+> **Explore → Question → Design → Build → Test → Measure → Improve → Share**
+
+우리의 기본 원칙:
+
+- 🧪 **작게 시작합니다.**
+- ❓ **질문에서 실험을 시작합니다.**
+- 📖 **성공과 실패를 모두 기록합니다.**
+- 🔁 **재현 가능한 결과를 지향합니다.**
+- 🤝 **서로의 실험을 리뷰합니다.**
+- 🌱 **각자의 속도와 관심에 따라 깊이를 선택할 수 있습니다.**
+- 🌍 **가능하면 결과를 Open Source로 공유합니다.**
+
+이 프로젝트는 많은 시간을 투자하는 사람이 좋은 Runner라는 전제에서 출발하지 않습니다.
+
+**꾸준히 질문하고, 실험하고, 기록하고, 공유하는 것**을 더 중요하게 봅니다.
+
+---
+
+# 🔗 GitHub Workflow
+
+### Issues
+
+```text
+[WXX][track] Task
+```
+
+예:
+
+```text
+[W06][sim] Train condition B policy
+```
+
+### Branches
+
+```text
+wXX/track/short-description
+```
+
+### Pull Requests
+
+관련 Issue를 연결합니다.
+
+```text
+Closes #NN
+```
+
+가능하면 최소 1인의 review 후 merge합니다.
+
+### Labels
+
+```text
+week/W01 ... week/W14
+
+track/learning
+track/sim2real
+track/robot
+
+type/task
+type/bug
+type/question
+type/docs
+
+gate/freeze
+
+good first issue
+help wanted
+```
+
+---
+
+# 📁 Repository Structure
+
+```text
 Sim2Real-Walking-Robot/
-├── simulation/     # MuJoCo 환경, PPO 학습 코드, 조건별 config
-│   ├── configs/    # 조건 A/B/C/D 설정 (yaml)
-│   └── envs/       # microduck_rl 래퍼
-├── policies/       # 학습 정책 체크포인트 (HF Hub 미러)
-├── hardware/       # 조립 가이드, URDF 실측값, 캘리브레이션, 배포 스크립트
-├── perturb/        # 실물 교란 하네스 (4종)
-├── eval/           # 평가 스크립트 (성공률, CoT, 격차 계산, 층화 분석)
-├── docs/           # 논문 리뷰, 설계 문서, 주차별 진행 로그
+│
+├── simulation/
+│   ├── configs/
+│   └── envs/
+│
+├── policies/
+│
+├── hardware/
+│
+├── perturb/
+│
+├── eval/
+│
+├── docs/
 │   ├── literature/
 │   └── weekly/
-└── notebooks/      # 재현 예제
+│
+├── notebooks/
+│
+├── EVALUATION.md
+├── HARDWARE.md
+├── CONTRIBUTING.md
+└── README.md
 ```
 
-**문서** — `README.md` · `CONTRIBUTING.md` · `EVALUATION.md` · `HARDWARE.md` · 주차별 진행 로그
-**템플릿** — Issue(bug / task / question), PR 템플릿
+---
 
-## ⚠️ 리스크와 대응
+# ⚠️ Risks & Responses
 
-| 리스크 | 대응 |
-|--------|------|
-| **마이크로덕 물량 부족** | 이번 기수는 3D 프린팅 Open Duck Mini를 전제로 설계. 마이크로덕은 시즌 2로 이관 |
-| 3D 프린터 접근 실패 | W1에 접근 가능 인원 확인. 없으면 외주 출력 예산 확보 또는 실물 트랙 축소 |
-| 부품 배송 지연 | W2 주문을 마감으로 고정. 지연 시 W7 조립 → W9 조립으로 이월하고 교란 감사를 축소 |
-| GPU 확보 실패 | 최소 척추가 무료 GPU 수준에서 완주 가능하도록 설계. 조건 C·D 스윕 범위를 축소 |
-| 서보 개체 편차 | 캘리브레이션을 개별 서보 단위로 수행, 실측값을 저장소에 커밋 |
-| 실물 로봇 파손 | 예비 부품 출력을 조립과 동시에 진행. 낙상 테스트는 매트 위에서만 |
-| 시뮬 성공률이 80%에 못 미침 | 목표 동작을 직진 보행으로 축소. 회전·계단은 도전 과제로 분리 |
-| 도메인 랜덤화가 효과 없음 | 음성 결과도 그대로 보고. 랜덤화 범위별 스윕이 그 자체로 기여 |
-| 실물 배포까지 못 감 | W8 말 최소 척추가 시뮬만으로 완주 가능. 발표할 결과가 남음 |
-| 참여자 이탈 | 트랙별 2인 이상 배치, 문서화 의무 |
-| 시험기간이 W5–W8에 겹침 | W1에 팀 전체 일정을 미리 취합해 겹침 확인. 겹치는 주는 손실로 확정하고 W13 버퍼로 흡수 |
-| **W13이 연말과 겹침** | 공개 작업(W12)을 실질 마감으로 운영. W13은 순수 여유분으로만 계산 |
-| 결과가 기대와 다름 | Negative result가 곧 결과인 설계 |
+| Risk | Response |
+|---|---|
+| Hardware delay | simulation track continues |
+| Micro Duck availability | Open Duck Mini / available low-cost platform first |
+| 3D printing delay | external printing or reduced hardware scope |
+| GPU shortage | reduce sweep size |
+| Servo variance | per-servo calibration |
+| Robot damage | spare parts + safe test environment |
+| Walking fails | standing / stepping / failure analysis |
+| DR does not help | negative result reported |
+| Real deployment fails | simulation + actuator characterization remains |
+| Participant leaves | documentation + shared ownership |
+| Schedule pressure | preserve core experiment, reduce optional challenges |
 
-## 📚 Archive
+> **Negative result is not project failure.**
 
-### 결과물
+---
 
-- 🔗 **Repository**: https://github.com/andrewJYjang/Sim2Real-Walking-Robot (MIT)
-- 🤗 **Policies**: Hugging Face Hub (M5에서 공개)
-- 📐 **Evaluation protocol**: `EVALUATION.md` (M1에서 확정)
-- 🔧 **Hardware guide**: `HARDWARE.md` (M3에서 확정)
-- 🎥 **Demo**: 시연 영상 (M4–M5)
-- 📝 **Blog**: 기술 블로그 2편 이상 (M5)
+# 📚 Project Outputs
 
-### 주요 기록
+예상 결과물:
 
-| Date | Content | Link |
-|------|---------|------|
-| 2026.10.04 | 프로젝트 킥오프 | URL |
-| 2026.10.31 | M1 · 평가 프로토콜 동결 | URL |
-| 2026.11.14 | M2 · 시뮬 성공률 80% 달성 | URL |
-| 2026.12.05 | M3 · 실물 첫 구동 | URL |
-| 2026.12.19 | M4 · 결과 동결 | URL |
-| 2027.01.09 | M5 · 최종 결과 공유 · repo 공개 | URL |
+- 🧠 PPO policies
+- 📊 A/B/C/D experiment results
+- 📐 Sim-to-Real evaluation protocol
+- 🦿 real robot deployment logs
+- 💥 failure taxonomy
+- 🔧 hardware / calibration guide
+- 🤗 Hugging Face policies
+- 💻 reproducible GitHub repository
+- 🎥 demonstration videos
+- 📄 optional joint research manuscript / arXiv
 
-## 📖 부록 A — W2 지정 논문
+---
 
-1인 1편으로 분담합니다. ★ 표시는 전원 필독.
+# 🌱 Beyond the Core
 
-**A-1. 강화학습 기초**
-- ★ Schulman et al., *Proximal Policy Optimization Algorithms* (2017)
+모든 참가자가 논문을 써야 하는 프로젝트는 아닙니다.
 
-**A-2. 보행 제어와 Sim-to-Real**
-- ★ Sim-to-Real 도메인 랜덤화 대표 논문 (W1에 확정)
-- 액추에이터 네트워크 모델링 관련 논문
+Core만 완주해도
 
-**A-3. 대규모 병렬 RL**
-- 병렬 시뮬레이션 기반 보행 학습 논문
+> **Learn → Build → Simulate → Train → Deploy → Measure → Open Source**
 
-**A-4. 오픈소스 로봇 플랫폼**
-- LeRobot / Open Duck Mini 기술 문서
+라는 하나의 완결된 Robot Learning 경험을 갖게 됩니다.
 
-**A-5. CoRL 2026 최신 동향**
-- W6 리뷰용, W2에 후보 선정
+더 깊이 연구하고 싶은 사람은
 
-> ⚠️ 논문 목록은 W1 모임에서 확정합니다. DOI와 링크를 직접 열어 확인한 뒤 인용 목록에 올립니다.
+> **Research Question → Additional Experiments → Joint Research → arXiv → Workshop / Conference → Research Community**
 
-## 🌱 참여 안내 (How to Engage)
+로 이어갈 수 있습니다.
 
-### 모집 일정
+그리고 그 과정에서 또 다른 질문이 생기면 다음 프로젝트가 시작됩니다.
 
-| 일정 | 내용 |
-|------|------|
-| 2026.09.18 | 모집 시작 |
-| 2026.09.29 | 모집 마감 |
-| 2026.10.01 | 선정 발표 |
-| 2026.10.04 | 활동 시작 |
-| 2027.01.09 | 활동 종료 |
+> **The goal is not just to make a robot walk.  
+> The goal is to understand why it walks, why it fails, and what we can learn from both.**
 
-### 참여 방식
+---
 
-- **빌더로 참여** — 프로젝트 기획·운영 주도
-- **러너로 참여** — 연구·개발·테스트 등 실행 (시뮬·정책 / 보상·랜덤화 / 하드웨어·배포)
-- **청강 참여** — 공개 세션 참여 가능
+# 🌱 How to Engage
 
-❗️**참여 링크**: [가짜연구소 디스코드](https://discord.gg/pseudolab)
-❗️**커뮤니케이션 채널**: 디스코드 `#Room-GH`
+기수 참가자가 아니더라도 공개 세션, Issue, Pull Request 등을 통해 참여할 수 있습니다.
 
-누구나 청강을 통해 모임을 참여하실 수 있습니다.
+특히 다음 기여를 환영합니다.
 
-- 특별한 신청 없이 **일요일 21:00** 정기 모임 시간에 맞추어 디스코드 `#Room-GH` 채널로 입장
-- Magical Week 중 행사에 참가
-- Pseudo Lab 행사에서 만나기
+- reward function experiments
+- new terrain / perturbation conditions
+- actuator characterization
+- reproducibility tests
+- documentation
+- literature / open-source implementation discovery
 
-### 참여 조건
+자세한 기여 방법은 `CONTRIBUTING.md`를 참고합니다.
 
-- 12주 동안 스스로 열공·열일하는 **성실한 참여 가능성 (최우선)**
-- 필요한 정보를 생각하고 바로 실행하는 실행력
-- 실행력이 좀 떨어지고 실패해도 계속 도전하는 자세
+---
 
-**우대 재능** — 🎙️ 발표자료 · 📝 문서정리 · ⚙️ 툴관리
-**필수 스킬** — Python 기초, 터미널 사용, Git/GitHub 개념
-**활용 AI 서비스** — 🤖 ChatGPT · 🧠 Claude · ✨ Gemini
+# 🙏 Acknowledgement
 
-### 코드로 기여하기
+이 프로젝트는 **Pseudo-Lab Open Academy**의 일부로 진행됩니다.
 
-기수 참여자가 아니어도 기여할 수 있습니다. `good first issue` 라벨과 [CONTRIBUTING.md](CONTRIBUTING.md)를 확인해 주세요. 특히 **보상 함수 설계 개선**과 **새 지형·교란 조건 추가**는 외부 기여를 환영하는 영역입니다.
+서로의 질문과 시행착오를 공개하고 함께 배우는 과정이  
+Pseudo-Lab의 **Serendipity Revolution**으로 이어지기를 기대합니다.
 
-## Acknowledgement 🙏
+Sim2Real-Walking-Robot is developed as part of Pseudo-Lab's open research community.
 
-이 프로젝트는 가짜연구소 Open Academy로 진행됩니다. 여러분의 참여와 기여가 '우연한 혁명(Serendipity Revolution)'을 가능하게 합니다. 모두에게 깊은 감사를 전합니다.
+Special thanks to all contributors and to the open-source Robot Learning community.
 
-Sim2Real-Walking-Robot is developed as part of Pseudo-Lab's Open Research Initiative. Special thanks to our contributors and the open source community for their valuable insights and contributions.
+---
 
-## About Pseudo Lab 👋🏼
-
-[Pseudo-Lab](https://pseudo-lab.com/) is a non-profit organization focused on advancing machine learning and AI technologies. Our core values of Sharing, Motivation, and Collaborative Joy drive us to create impactful open-source projects. With over 5k+ researchers, we are committed to advancing machine learning and AI technologies.
-
-## 📄 License
+# 📄 License
 
 MIT License
