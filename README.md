@@ -38,7 +38,7 @@ MuJoCo에서 PPO 기반 보행 정책을 학습하고, 동일한 정책을 실�
 | 기수 | 가짜연구소 13기 Open Academy |
 | 활동 기간 | **2026.10.04 – 2027.01.09** |
 | 구성 | 12주 Core + 2주 Buffer / Research Transition |
-| 정기 모임 | 매주 **일요일 21:00–23:00** |
+| 정기 모임 | 매주 **일요일 20:30–22:30** |
 | 커뮤니케이션 | Pseudo-Lab Discord `#Room-GH` |
 | Repository | `Pseudo-Lab/Sim2Real-Walking-Robot` |
 | License | MIT |
