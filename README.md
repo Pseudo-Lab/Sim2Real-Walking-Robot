@@ -14,35 +14,35 @@
 > **We do not stop when the robot walks in simulation.  
 > We measure what happens when it meets the real world.**
 
-## 🚀 소개
+## 🚀 Introduction
 
-**Sim2Real Walking Robot Challenge**는 저비용 오픈소스 이족보행 로봇을 이용하여  
-시뮬레이션에서 학습한 locomotion policy가 실제 로봇에서 **얼마나, 왜 달라지는지 직접 측정하는 Physical AI 프로젝트**입니다.
+**Sim2Real Walking Robot Challenge** is a Physical AI project using low-cost open-source biped robots to
+directly measure **how and why locomotion policies trained in simulation behave differently on real robots**.
 
-MuJoCo에서 PPO 기반 보행 정책을 학습하고, 동일한 정책을 실제 로봇에 배포하여 Sim-to-Real gap을 측정합니다.
+We train PPO-based locomotion policies in MuJoCo, deploy the same policies to real robots, and measure the Sim-to-Real gap.
 
-단순히 로봇을 걷게 만드는 데서 끝나지 않습니다.
+Our goal is not simply to make the robot walk.
 
 > **Simulation → Learning → Real Robot → Failure → Measurement → Improvement**
 
-성공한 실험뿐 아니라 넘어짐, 진동, 제자리걸음, 복귀 실패 같은 **실패도 데이터로 기록**합니다.
+We record not only successful experiments but also **failures as data**, including falls, oscillation, no-progress behavior, and recovery failures.
 
-하드웨어가 없어도 Simulation Track만으로 프로젝트의 핵심 학습과 실험을 완주할 수 있습니다. 그리고, 이렇게 시작한 우리들의 연구는 2027년... 2030년 이후에도 예측하기 쉽지 않은 다양한 찐 전문가들이 합류할 수 있어요. 아직은 확정하지 못할 정도로 바쁘게 살고 있는 그런 상황이 있으니까요, 이해할 수 있어요. 로봇이 할 수 있는 일이 무엇이고 로봇으로는 잘 안되는 일은 무엇일까요? 보행 로봇은? 보행은 단지 로봇이 할 수 있는 작은 일이죠. 그러나 휴머노이드에게 보행은 완전 다른 임팩이 있는 것을 알고 있어요. 그래서 시작했어요. 이렇게 시작한 연구는 아주 오래 다른 더 좋은 연구로 이어질 것이라고 생각해요. 아주 실력이 좋은 연구 능력자들이 지켜 보고 있으며 응원하고 있으니까요!
+Even without hardware, participants can complete the project's core learning and experiments through the Simulation Track. The research we begin here can continue well beyond 2027 and 2030, growing as experienced researchers and practitioners join when their circumstances allow. What can robots do well, and what remains difficult for them? What about walking robots? Walking is only one small part of what robots can do, but for humanoids, locomotion has a very different impact. That is why we started here. We hope this project will grow into deeper and better research over many years, supported by capable researchers who are watching, encouraging, and contributing to the work.
 
 ---
 
 ## 🗓️ Project Overview
 
-| 항목 | 내용 |
+| Item | Details |
 |---|---|
-| 기수 | 가짜연구소 13기 Open Academy |
-| 활동 기간 | **2026.10.04 – 2027.01.09** |
-| 구성 | 12주 Core + 2주 Buffer / Research Transition |
-| 정기 모임 | 매주 **일요일 20:30–22:30** |
-| 커뮤니케이션 | Pseudo-Lab Discord `#Room-GH` |
+| Cohort | Pseudo-Lab Open Academy, Season 13 |
+| Project Period | **2026.10.04 – 2027.01.09** |
+| Structure | 12-week Core + 2-week Buffer / Research Transition |
+| Regular Meeting | Every **Sunday, 20:30–22:30** |
+| Communication | Pseudo-Lab Discord `#Room-GH` |
 | Repository | `Pseudo-Lab/Sim2Real-Walking-Robot` |
 | License | MIT |
-| Core Robot | Open Duck Mini 계열 low-cost biped |
+| Core Robot | Open Duck Mini family of low-cost bipeds |
 | Simulation | MuJoCo + `microduck_rl` |
 | Robot Learning | PPO / LeRobot |
 | Model & Data Sharing | GitHub + Hugging Face Hub |
@@ -51,25 +51,25 @@ MuJoCo에서 PPO 기반 보행 정책을 학습하고, 동일한 정책을 실�
 
 # ✨ Why This Project?
 
-Robot Learning의 대표적인 흐름 중 하나는
+One of the representative workflows in Robot Learning is
 
 > **Learn in Simulation → Deploy to Reality**
 
-입니다.
+.
 
-시뮬레이션에서는 대규모 병렬 환경을 이용해 빠르게 locomotion policy를 학습할 수 있습니다.
+In simulation, we can use massively parallel environments to train locomotion policies quickly.
 
-그러나 실제 로봇으로 옮기는 순간 문제가 달라집니다.
+But the problem changes the moment we move to a real robot.
 
 ### 1. Hardware Gap
 
-논문에 등장하는 로봇은 개인이나 입문자가 쉽게 접근하기 어려운 경우가 많습니다.
+Robots used in research papers are often difficult for individuals and beginners to access.
 
-우리는 **low-cost open-source biped**를 이용하여 실제 Sim-to-Real 실험의 진입장벽을 낮춥니다.
+We use a **low-cost open-source biped** to lower the barrier to real Sim-to-Real experimentation.
 
 ### 2. Reality Gap
 
-시뮬레이션과 현실은 같지 않습니다.
+Simulation and reality are not the same.
 
 - mass / inertia mismatch
 - servo delay
@@ -80,60 +80,60 @@ Robot Learning의 대표적인 흐름 중 하나는
 - battery voltage drop
 - terrain variation
 
-등이 실제 로봇의 동작을 바꿉니다.
+These factors can significantly change the behavior of a real robot.
 
-그래서 이 프로젝트의 질문은 단순히
+So the question of this project is not simply
 
 > **"Can the robot walk?"**
 
-가 아닙니다.
+.
 
-우리가 묻는 것은
+What we ask instead is
 
 > **"Why does a policy that walks in simulation fail in reality?"**
 
-입니다.
+.
 
 ---
 
 # 🎯 Research Questions
 
-프로젝트 전체를 관통하는 핵심 질문입니다.
+These are the core questions that guide the entire project.
 
-1. **Simulation success rate는 real-world success rate를 얼마나 예측하는가?**
-2. **Domain Randomization의 범위를 넓힐수록 실물 성능도 계속 좋아지는가?**
-3. **Actuator Modeling은 Domain Randomization과 비교해 Sim-to-Real gap을 얼마나 줄이는가?**
-4. **Simulation에서는 성공하지만 real robot에서 실패하는 대표적인 failure mode는 무엇인가?**
-5. **동일한 policy를 동일 조건에서 반복했을 때 결과는 얼마나 재현되는가?**
-6. **Low-cost biped에서도 기존 Sim-to-Real 연구 결과를 재현할 수 있는가?**
+1. **How well does simulation success rate predict real-world success rate?**
+2. **Does expanding the range of Domain Randomization always improve real-world performance?**
+3. **How much can Actuator Modeling reduce the Sim-to-Real gap compared with Domain Randomization?**
+4. **What are the representative failure modes that succeed in simulation but fail on a real robot?**
+5. **How reproducible are the results when the same policy is repeated under the same conditions?**
+6. **Can existing Sim-to-Real research findings be reproduced on a low-cost biped?**
 
-Research Question은 프로젝트가 진행되면서 추가되거나 수정될 수 있습니다.
+Research Questions may be added or revised as the project progresses.
 
 ---
 
 # 🎯 Goals
 
-이번 시즌의 목표 결과물입니다.
+The target outputs for this season are:
 
-1. **재현 가능한 보행 학습 파이프라인**  
-   설치부터 policy training까지 README만 보고 재현
+1. **Reproducible Locomotion Training Pipeline**  
+   Reproduce the full process from installation to policy training using only the README
 
-2. **공개 Policy Checkpoints**  
-   조건별 policy + config + training curve
+2. **Public Policy Checkpoints**  
+   Policy + config + training curve for each condition
 
 3. **4-way Controlled Comparison**  
-   A/B/C/D 조건을 동일한 evaluation protocol로 비교
+   Compare A/B/C/D under the same evaluation protocol
 
 4. **Sim↔Real Gap Report**  
-   동일 policy의 simulation / real robot 결과 비교
+   Compare simulation and real-robot results for the same policy
 
 5. **Hardware DIY Guide**  
    3D printing → assembly → calibration → deployment
 
 6. **Research Extension Foundation**  
-   선행연구·코드·실험 로그·failure data를 축적하여 희망자의 후속 공동연구와 arXiv로 연결
+   Build a shared base of prior work, code, experiment logs, and failure data that can support follow-up joint research and an arXiv submission
 
-> 완벽한 로봇보다 **재현 가능한 실험과 배울 수 있는 기록**을 남기는 것이 목표입니다. 당연히 참여 연구 담당은 빨리 정하고 열심히 추진해야 하겠지요.
+> The goal is to leave behind **reproducible experiments and records that others can learn from**, rather than merely a perfect robot. Research roles should therefore be assigned early, with participants moving the work forward actively.
 
 ---
 
@@ -141,23 +141,23 @@ Research Question은 프로젝트가 진행되면서 추가되거나 수정될 �
 
 ## Target Platforms
 
-| 구분 | 내용 |
+| Category | Details |
 |---|---|
 | Simulator | MuJoCo + `microduck_rl` |
-| Main Biped | Open Duck Mini 계열 |
-| Follow-up | Micro Duck MD-01 등 low-cost biped |
+| Main Biped | Open Duck Mini family |
+| Follow-up | Low-cost bipeds such as Micro Duck MD-01 |
 | Preliminary Robot Learning | SO-ARM101 + LeRobot |
 | Algorithm | PPO |
 | Policy / Dataset | Hugging Face Hub |
 | Code / Experiments | GitHub |
 
-SO-ARM101은 walking robot의 최종 대상이 아니라 **Robot Learning pipeline을 빠르게 이해하기 위한 선행 실습**입니다.
+SO-ARM101 is not the final walking-robot target. It is a **preliminary exercise for quickly understanding the Robot Learning pipeline**.
 
-이를 통해
+Through this, we first experience the flow
 
 > **Teleoperate → Record → Train → Evaluate → Deploy**
 
-흐름을 경험한 뒤 locomotion RL로 확장합니다.
+and then expand to locomotion RL.
 
 ---
 
@@ -165,63 +165,63 @@ SO-ARM101은 walking robot의 최종 대상이 아니라 **Robot Learning pipeli
 
 ## Four Conditions
 
-동일한 evaluation protocol을 사용하여 네 조건을 비교합니다.
+We compare four conditions using the same evaluation protocol.
 
 | Condition | Description |
 |---|---|
-| **A. Baseline** | 기본 PPO + 기본 reward + randomization 없음 |
-| **B. Reward Redesign** | energy / symmetry / foot placement 등 reward 개선 |
+| **A. Baseline** | Basic PPO + basic reward + no randomization |
+| **B. Reward Redesign** | Improve rewards such as energy / symmetry / foot placement |
 | **C. Domain Randomization** | mass / friction / delay / terrain randomization |
-| **D. Actuator Modeling** | 실제 servo delay / torque 특성을 simulation에 반영 |
+| **D. Actuator Modeling** | Reflect real servo delay / torque characteristics in simulation |
 
-각 policy를
+Each policy is evaluated in the same order:
 
 **Simulation → Real Robot**
 
-순서로 동일하게 평가합니다.
+using the same evaluation procedure.
 
-따라서 기본 결과 구조는
+Therefore, the basic result structure is
 
 > **4 Conditions × 2 Environments = 8 Experimental Cells**
 
-입니다.
+.
 
 ---
 
 # 📐 Sim-to-Real Gap Coordinates
 
-단순히 "잘 걸었다"라고 보고하지 않습니다.
+We do not report results simply as "it walked well."
 
-모든 실험에 다음 조건을 기록합니다.
+For every experiment, we record the following conditions.
 
 | Coordinate | Definition | Measurement |
 |---|---|---|
-| Terrain | 평지 / 경사 / 요철 | MuJoCo heightfield / real surface |
-| Mass & Inertia | simulation 대비 실제 편차 | 실제 부품 측정 |
+| Terrain | flat / slope / uneven surface | MuJoCo heightfield / real surface |
+| Mass & Inertia | deviation between simulation and reality | physical component measurement |
 | Actuator Delay | command-response delay | servo step response |
 | Torque Limit | saturation point | servo measurement |
 | Friction | foot-ground friction | incline test |
 | Observation Noise | IMU / encoder noise | stationary logging |
-| Voltage Drop | battery state에 따른 변화 | runtime voltage logging |
+| Voltage Drop | variation with battery state | runtime voltage logging |
 
-이 좌표를 이용하여 단순 평균 성능이 아니라
+Using these coordinates, we analyze more than average performance. We ask
 
-> **어떤 현실 조건에서 policy가 무너지는가**
+> **Under which real-world conditions does the policy break down?**
 
-를 분석합니다.
+and analyze the answer.
 
 ---
 
 # 📊 Evaluation Protocol
 
-W4에서 다음 평가 protocol을 동결합니다.
+At W4, we freeze the following evaluation protocol.
 
 1. **Straight Walking**
 2. **Turning**
 3. **Perturbation Recovery**
 4. **Continuous Walking — 30 sec**
 
-프로토콜 동결 이후에는 가능한 한 동일한 조건으로 모든 policy를 평가합니다.
+After the protocol is frozen, all policies are evaluated under the same conditions as much as possible.
 
 ---
 
@@ -234,15 +234,15 @@ W4에서 다음 평가 protocol을 동결합니다.
 | Stability | body roll/pitch RMS |
 | Recovery | perturbation recovery time |
 | Sim-to-Real | simulation success − real success |
-| Robustness | perturbation condition별 success |
-| Reproducibility | 동일 policy 반복실험 분산 |
+| Robustness | success by perturbation condition |
+| Reproducibility | variance across repeated runs of the same policy |
 | Training Cost | steps / wall-clock / GPU-hours |
 
 ### Repeated Trials
 
-핵심 조건은 가능하면 **10회 반복 측정**합니다.
+For key conditions, we aim for **10 repeated trials whenever possible**.
 
-한 번 걷는 것과 **반복해서 걷는 것**은 다른 문제입니다.
+Walking once and **walking repeatedly** are different problems.
 
 > **Reproducibility itself is a result.**
 
@@ -250,9 +250,9 @@ W4에서 다음 평가 protocol을 동결합니다.
 
 # 💥 Failure Is Data
 
-실패를 제거하지 않고 분류합니다.
+We classify failures instead of removing them.
 
-예:
+Examples:
 
 - Fall
 - No Progress
@@ -265,62 +265,62 @@ W4에서 다음 평가 protocol을 동결합니다.
 
 > **Success is a result. Failure is also data.**
 
-실물 실패 영상과 sensor / action log를 가능한 한 함께 보존합니다.
+Whenever possible, we preserve real-world failure videos together with sensor / action logs.
 
 ---
 
 # 🧪 Real-world Perturbation Audit
 
-실제 로봇에 통제된 perturbation을 가합니다.
+We apply controlled perturbations to the real robot.
 
 | Perturbation | Example |
 |---|---|
-| External Force | 측면 외력 |
+| External Force | lateral force |
 | Terrain | 5 / 10 / 15 mm obstacle |
 | Payload | +50 / +100 g |
 | Friction | mat / floor / acrylic |
 
-이를 통해 단순 walking success가 아니라 **robustness와 recovery**를 비교합니다.
+This allows us to compare **robustness and recovery**, not just walking success.
 
 ---
 
 # 🧱 Resource Levels
 
-모든 참가자가 동일한 하드웨어나 GPU를 가질 필요는 없습니다.
+Participants do not all need the same hardware or GPU resources.
 
-| Level | 내용 | 이번 기수 |
+| Level | Description | This Cohort |
 |---|---|---|
 | **Level 1** | MuJoCo + PPO + A/B | Core |
 | **Level 2** | C/D + parallel rollout + randomization | Core |
 | **Level 3** | Real robot deployment + perturbation | Challenge |
 
-하드웨어 조달이 늦어져도 simulation research는 계속 진행합니다.
+Simulation research continues even if hardware procurement is delayed.
 
 ---
 
 # 🛟 Fallback Paths
 
-| 상황 | 대체 경로 |
+| Situation | Fallback Path |
 |---|---|
-| Hardware 없음 | A–D Simulation comparison |
-| Biped 조립 지연 | Simulation + servo-level characterization |
-| Full walking 실패 | Standing / stepping / limited locomotion |
-| GPU 부족 | randomization sweep 범위 축소 |
-| Real deployment 실패 | failure analysis 자체를 결과로 기록 |
+| No hardware | A–D Simulation comparison |
+| Biped assembly delayed | Simulation + servo-level characterization |
+| Full walking fails | Standing / stepping / limited locomotion |
+| Limited GPU | Reduce randomization sweep range |
+| Real deployment fails | Treat failure analysis itself as a result |
 
-범위는 줄일 수 있지만 **실험의 뼈대는 유지**합니다.
+The scope may shrink, but **the experimental spine remains intact**.
 
 ---
 
 # 📚 Learning & Research Flow
 
-이 프로젝트는 정해진 논문을 발표하고 끝나는 스터디가 아닙니다.
+This project is not a paper-reading study that ends with a scheduled presentation.
 
-우리가 지향하는 흐름은 다음과 같습니다.
+We follow this research flow:
 
 > **Learn → Read → Question → Reproduce → Build → Simulate → Train → Deploy → Measure → Improve → Share**
 
-논문도 같은 방식으로 사용합니다.
+We use papers in the same way.
 
 > **Seed Paper → Research Question → Related Papers → Authors / Labs → Code → Reproduction → Our Experiment**
 
@@ -335,13 +335,13 @@ W4에서 다음 평가 protocol을 동결합니다.
 | Week | Date | Topic | Main Activities |
 |---|---|---|---|
 | **W1** | 10.04–10.10 | Kickoff | RL / Robot Learning / Sim-to-Real overview · MuJoCo setup · resource check |
-| **W2** | 10.11–10.17 | PPO + Research Question | **Seed Paper 탐색 · 관심 Research Question 공유 · 관련 논문/연구실 탐색 · 기본 walking reproduction · Open Duck Mini 부품 주문** |
+| **W2** | 10.11–10.17 | PPO + Research Question | **Explore Seed Papers · share research interests and Research Questions · explore related papers/labs · reproduce basic walking · order Open Duck Mini parts** |
 | **W3** | 10.18–10.24 | Parallel RL | locomotion training · reward curves · SO-ARM101 / LeRobot data workflow |
 | **W4** | 10.25–10.31 | Reward & Experimental Design | evaluation protocol freeze · gap coordinates freeze · 3D printing · track selection |
 
 ### W4 Freeze Gate
 
-W4 이후에는 핵심 evaluation protocol을 가능한 한 변경하지 않습니다.
+After W4, we avoid changing the core evaluation protocol whenever possible.
 
 ---
 
@@ -351,14 +351,14 @@ W4 이후에는 핵심 evaluation protocol을 가능한 한 변경하지 않습�
 
 | Week | Topic | Simulation / Policy | Reward / Randomization | Hardware / Deployment |
 |---|---|---|---|---|
-| **W5** | Motion Style | A 안정화 | reward ablation | assembly start |
+| **W5** | Motion Style | Stabilize A | reward ablation | assembly start |
 | **W6** | Recent Research | B training | randomization sweep design | printing / wiring |
 | **W7** | Domain Randomization | C training | DR comparison | assembly / URDF measurement |
 | **W8** | Actuator Modeling | D training | C vs D analysis | servo calibration / delay / torque |
 
 ### Minimum Spine
 
-W8까지 다음이 완료되면 실물이 없어도 프로젝트의 기본 연구 구조는 살아 있습니다.
+If the following are completed by W8, the core research structure remains viable even without a physical robot.
 
 > Environment  
 > → PPO Baseline  
@@ -378,7 +378,7 @@ W8까지 다음이 완료되면 실물이 없어도 프로젝트의 기본 연�
 | **W10** | Controlled Comparison | B/C/D deployment · repeated trials |
 | **W11** | Sim↔Real Gap | final metrics · perturbation audit · failure taxonomy · result freeze |
 
-W11에서 핵심 결과 수치를 동결합니다.
+At W11, we freeze the core quantitative results.
 
 ---
 
@@ -390,7 +390,7 @@ W11에서 핵심 결과 수치를 동결합니다.
 |---|---|---|---|
 | **W12** | 12.20–12.26 | final presentation · README · configs · evaluation code · demo · HF release | Public repository |
 | **W13** | 12.27–01.02 | buffer / reproducibility test | Reproduction log |
-| **W14** | 01.03–01.09 | **Core 결과 동결 · 공동연구팀 구성 · Publication Go/No-Go · Micro Duck 후속실험 설계** | **Core release · Research questions · extension team** |
+| **W14** | 01.03–01.09 | **Freeze Core results · form joint research team · Publication Go/No-Go · design follow-up Micro Duck experiments** | **Core release · Research Questions · extension team** |
 
 ---
 
@@ -398,17 +398,17 @@ W11에서 핵심 결과 수치를 동결합니다.
 
 | # | Milestone | Due | Completion |
 |---|---|---|---|
-| **M1** | Environment & Research Question | 10.31 | setup · Seed Paper 탐색 · Research Question 초안 · evaluation freeze |
+| **M1** | Environment & Research Question | 10.31 | setup · Seed Paper exploration · draft Research Question · evaluation freeze |
 | **M2** | Simulation Policy | 11.14 | A/B policies · training curves · reward analysis |
 | **M3** | Sim-to-Real Preparation | 12.05 | C/D · hardware assembly · actuator calibration |
 | **M4** | Real Deployment & Gap Analysis | 12.19 | real deployment · repeated trials · failure taxonomy · result freeze |
-| **M5** | Open Source & Research Transition | 01.09 | reproducibility · GitHub/HF release · Research Question 정리 · Publication Go/No-Go |
+| **M5** | Open Source & Research Transition | 01.09 | reproducibility · GitHub/HF release · Research Question consolidation · Publication Go/No-Go |
 
 ---
 
 # 👥 Research Tracks
 
-W1–W4는 공통으로 진행하고 이후 관심과 역량에 따라 트랙을 나눕니다.
+Everyone works together in W1–W4; afterward, participants split into tracks according to interest and capability.
 
 ### ① Learning / Policy
 
@@ -435,57 +435,57 @@ W1–W4는 공통으로 진행하고 이후 관심과 역량에 따라 트랙을
 - perturbation experiments
 - failure logging
 
-트랙은 고정된 직책이 아닙니다.
+Tracks are not fixed job assignments.
 
-필요하면 이동하고 서로의 실험을 함께 리뷰합니다.
+Participants can move between tracks when needed and review one another's experiments.
 
 ---
 
 # 🧭 Milestone Principles
 
-일정이 압축되어도 다음은 가능하면 유지합니다.
+Even if the schedule becomes compressed, we try to preserve the following:
 
 | Item | Why |
 |---|---|
-| **W2 Hardware Order** | 실물 실험 일정 확보 |
-| **W4 Evaluation Freeze** | 조건 간 공정한 비교 |
-| **Baseline A** | C/D의 효과를 말하기 위한 기준 |
-| **Repeated Trials** | 우연과 재현 가능한 성능을 구별 |
-| **Failure Logs** | Sim-to-Real 원인 분석의 핵심 |
+| **W2 Hardware Order** | Secure enough time for real-world experiments |
+| **W4 Evaluation Freeze** | Ensure fair comparison across conditions |
+| **Baseline A** | Provide the reference needed to evaluate C/D |
+| **Repeated Trials** | Separate chance outcomes from reproducible performance |
+| **Failure Logs** | Essential for analyzing causes of the Sim-to-Real gap |
 
 ---
 
 # 🔁 Research Extension
 
-12주 Core의 목표는
+The goal of the 12-week Core is
 
-> **재현 가능한 Sim-to-Real 실험 + 공개 저장소**
+> **Reproducible Sim-to-Real experiments + a public repository**
 
-까지입니다.
+.
 
-그러나 연구 준비는 기수 종료 후 갑자기 시작하지 않습니다.
+But research preparation does not suddenly begin after the cohort ends.
 
-**2026년 10월부터** Seed Papers, 관련 연구, 연구실, 공개 코드 및 주요 venue를 탐색합니다.
+Starting in **October 2026**, we explore Seed Papers, related research, labs, public code, and major venues.
 
 > **Core Project → Open Source → Joint Research → arXiv → Research Community**
 
-Core에서 의미 있고 재현 가능한 결과가 확보되면 W14에서 **Publication Go/No-Go**를 검토합니다.
+If the Core produces meaningful and reproducible results, we review a **Publication Go/No-Go** decision at W14.
 
-희망자는 이후 공동연구팀으로 계속 참여합니다.
+Interested participants may continue afterward as a joint research team.
 
 ---
 
 # 🔍 Research Preparation — Start Now
 
-Seed Papers는 논문을 한 편씩 배정하기 위한 목록이 아닙니다.
+Seed Papers are not a list of papers assigned one per person.
 
-Research Question을 찾기 위한 **starting points**입니다.
+They are **starting points** for discovering Research Questions.
 
-각 참가자는 관심 분야에서 다음 흐름을 탐색할 수 있습니다.
+Each participant can explore the following flow within their area of interest.
 
 > **Seed Paper → Question → Related Papers → Authors → Lab → Code → Our Experiment**
 
-관심 있는 연구를 발견하면 다음을 확인합니다.
+When you find research that interests you, check the following:
 
 - What problem did they solve?
 - What robot did they use?
@@ -502,7 +502,7 @@ Research Question을 찾기 위한 **starting points**입니다.
 
 ## A. Reinforcement Learning Foundations
 
-대표 출발점:
+Representative starting point:
 
 - Schulman et al., **Proximal Policy Optimization Algorithms** (2017)
 
@@ -566,7 +566,7 @@ Question:
 
 ## E. Recent Research
 
-프로젝트 기간 동안 다음 커뮤니티의 최신 연구를 지속적으로 살펴봅니다.
+Throughout the project, we continuously review recent work from the following communities.
 
 - ICRA
 - CoRL
@@ -574,40 +574,40 @@ Question:
 - IEEE-RAS Humanoids
 - related workshops
 
-관심 키워드:
+Keywords of interest:
 
 `Legged Locomotion` · `Humanoid` · `Sim-to-Real` ·  
 `Domain Randomization` · `Actuator Modeling` ·  
 `System Identification` · `Robust Control` ·  
 `Failure Recovery` · `Physical AI` · `Robot Foundation Models`
 
-특정 논문 목록은 고정하지 않습니다.
+We do not fix a permanent list of papers.
 
-새로운 연구가 나오면 Seed Papers에 추가합니다.
+As new research appears, we add it to the Seed Papers.
 
 ---
 
 # 🔎 Find Your Research Question
 
-논문 한 편을 완벽하게 설명하는 것보다 **좋은 질문 하나를 발견하는 것**을 중요하게 봅니다.
+We value **discovering one good question** more than perfectly explaining a single paper.
 
-예:
+Examples:
 
-> Domain Randomization을 많이 적용할수록 항상 실물 성능이 좋아질까?
+> Does applying more Domain Randomization always improve real-world performance?
 
-> 저가 servo의 delay를 정확히 모델링하면 randomization을 줄일 수 있을까?
+> If we model delay in low-cost servos accurately, can we reduce the amount of randomization needed?
 
-> Simulation에서 성공하고 real robot에서 실패하는 조건을 자동 분류할 수 있을까?
+> Can we automatically classify conditions where a policy succeeds in simulation but fails on a real robot?
 
-> 같은 policy를 10회 실행했을 때 발생하는 분산 자체가 Sim-to-Real gap의 일부일까?
+> Is the variance observed across 10 runs of the same policy itself part of the Sim-to-Real gap?
 
-질문이 생기면 그 질문을 따라 새로운 논문을 찾아갑니다.
+When a question emerges, we follow it to find new papers.
 
 ---
 
 # 📝 My Research Interest
 
-참가자는 `docs/literature/`에 자신의 연구 관심을 기록할 수 있습니다.
+Participants can record their research interests in `docs/literature/`.
 
 ```text
 Name / GitHub ID:
@@ -629,19 +629,19 @@ What I want to reproduce:
 What I want to test on our robot:
 ```
 
-Research Question은 언제든 바뀔 수 있습니다.
+Research Questions may change at any time.
 
 ---
 
 # 🧪 From Paper to Experiment
 
-논문 스터디의 결과가 슬라이드에서 끝나지 않도록 합니다.
+Paper study should not end with slides.
 
 > **Read → Question → Reproduce → Modify → Experiment → Measure → Share**
 
-논문 결과가 재현되지 않아도 괜찮습니다.
+It is okay if a paper's results cannot be reproduced.
 
-재현 실패의 원인이
+Possible causes of failed reproduction include
 
 - environment
 - dependency
@@ -650,28 +650,28 @@ Research Question은 언제든 바뀔 수 있습니다.
 - training setting
 - undocumented assumption
 
-중 무엇인지 기록하는 것 역시 의미 있는 결과입니다.
+Recording which of these caused the failure is itself a meaningful result.
 
 ---
 
 # 🚀 January 2027 — Joint Research Sprint
 
-Core 결과가 충분하다면 **2027년 1월을 집중 공동연구 기간**으로 운영합니다.
+If the Core results are strong enough, **January 2027 will be an intensive joint-research period**.
 
-참여는 선택 사항입니다.
+Participation is optional.
 
 | Period | Focus | Output |
 |---|---|---|
-| **01.01–01.09** | Core 결과 동결 · Publication Go/No-Go · team formation | Research Question / Contributions |
+| **01.01–01.09** | Freeze Core results · Publication Go/No-Go · team formation | Research Question / Contributions |
 | **01.10–01.16** | missing experiments · repeated Sim/Real trials | Final experimental data |
 | **01.17–01.23** | statistics · Sim↔Real gap · failure taxonomy · Related Work | Figures / Tables |
 | **01.24–01.31** | joint writing · internal review · external feedback | **arXiv manuscript** |
 
-연구 기여는 여러 형태가 가능합니다.
+Research contributions can take many forms.
 
 **RL / Reward / DR / Actuator Modeling / Hardware / Experiments / Data Analysis / Failure Analysis / Visualization / Literature / Writing**
 
-공동저자 여부와 순서는 단순 참가 여부가 아니라 **실제 연구 기여를 바탕으로 공동연구팀에서 논의**합니다.
+Co-authorship and author order will be discussed by the joint research team based on **actual research contributions**, not mere participation.
 
 ---
 
@@ -683,7 +683,7 @@ Tentative research direction:
 
 > **Measuring and Reducing the Sim-to-Real Gap in Low-Cost Biped Locomotion**
 
-가능한 contribution 후보:
+Possible contribution candidates:
 
 1. **Low-cost Biped Sim-to-Real Evaluation Protocol**
 2. **Baseline / Reward / Domain Randomization / Actuator Modeling Controlled Comparison**
@@ -691,19 +691,19 @@ Tentative research direction:
 4. **Real-world Failure-mode Analysis**
 5. **Reproducible Open-source Code, Logs and Hardware Information**
 
-다만 contribution을 미리 결론 내리지는 않습니다.
+However, we do not decide the contributions in advance.
 
-> **실험으로 확인된 결과만 research claim으로 발전시킵니다.**
+> **Only findings supported by experiments will be developed into research claims.**
 
 ---
 
 # 🎓 Workshop & Conference Path
 
-Workshop이나 Conference는 **2027년 2월이 되어서 처음 찾지 않습니다.**
+We do not wait until **February 2027** to start looking for Workshops or Conferences.
 
-프로젝트 초기부터 관련 연구와 venue를 함께 추적합니다.
+From the beginning of the project, we track relevant research and venues together.
 
-관심 커뮤니티:
+Communities of interest:
 
 - ICRA
 - CoRL
@@ -711,25 +711,25 @@ Workshop이나 Conference는 **2027년 2월이 되어서 처음 찾지 않습니
 - IEEE-RAS Humanoids
 - Robot Learning / Sim-to-Real / Embodied AI / Physical AI Workshops
 
-흐름은 다음과 같습니다.
+The flow is:
 
 > **Paper → Authors → Lab → Venue → CFP → Our Research**
 
-2027년 2월 이후에는 그때의 실제 CFP와 연구 결과를 함께 검토하여 **주제·완성도·일정이 맞는 Workshop / Conference에 후속 투고**를 검토합니다.
+After February 2027, we will review the actual CFPs available at that time together with our research results and consider follow-up submission to a **Workshop / Conference that fits the topic, maturity, and schedule**.
 
-arXiv가 끝이 아니라 다음 연구를 위한 출발점이 될 수 있습니다.
+arXiv can be a starting point for the next stage of research, not the end.
 
 ---
 
 # 🌎 Global Research Exchange
 
-관련 분야를 연구하는 국내외 교수·연구자·현업 전문가와 **Research Conversation**을 추진할 수 있습니다.
+We may initiate **Research Conversations** with domestic and international professors, researchers, and industry experts working in related fields.
 
-단순 초청 강연보다 다음 형태를 지향합니다.
+Rather than one-way invited talks, we aim for the following format:
 
 > **Guest Research Talk → Our Progress → Research Questions → Discussion → Feedback**
 
-우리도 연구자에게 질문합니다.
+We also ask researchers questions.
 
 > *Is this a meaningful research question?*
 
@@ -739,27 +739,27 @@ arXiv가 끝이 아니라 다음 연구를 위한 출발점이 될 수 있습니
 
 > *What would make this result publishable?*
 
-외부 연구자는 참여 정도에 따라
+Depending on their level of involvement, external researchers may participate as
 
 **Guest Researcher / Research Collaborator / Advisor**
 
-형태로 연구 질문, 실험 설계, 결과 해석 또는 후속 공동연구에 참여할 수 있습니다.
+and contribute to research questions, experimental design, result interpretation, or follow-up joint research.
 
 ---
 
 # 🤖 From Paper to Research Community
 
-논문을 읽었다면 저자와 연구실도 찾아봅니다.
+When we read a paper, we also explore its authors and labs.
 
 > **Paper → Researcher → Lab → Community → Conversation → New Research Question**
 
-국제 로봇 학회와 Workshop은 논문을 제출하는 장소인 동시에 **연구자를 직접 만나고 새로운 질문을 발견하는 장소**입니다.
+International robotics conferences and Workshops are not only places to submit papers; they are also **places to meet researchers directly and discover new questions**.
 
-ICRA 2027 서울 개최도 이러한 research-community experience의 기회로 활용하고자 합니다.
+We plan to use ICRA 2027 in Seoul as an opportunity for this research-community experience.
 
-관심 논문의 연구자와 연구실을 미리 찾아보고, 관련 session / poster / workshop 등에 참여할 수 있습니다.
+We can identify researchers and labs behind papers of interest in advance and participate in relevant sessions / posters / workshops.
 
-행사 이후에는 팀 내부 **Research Review / Teach-back**으로 배운 내용을 공유하고 후속 실험과 연결합니다.
+After each event, we share what we learned through an internal **Research Review / Teach-back** and connect it to follow-up experiments.
 
 ---
 
@@ -767,13 +767,13 @@ ICRA 2027 서울 개최도 이러한 research-community experience의 기회로 
 
 | Period | Stage | Target |
 |---|---|---|
-| **2026.10** | Seed Papers · literature / labs / venues 탐색 | Research Questions |
+| **2026.10** | Explore Seed Papers · literature / labs / venues | Research Questions |
 | **2026.11** | A/B/C/D Simulation experiments | Controlled comparison |
 | **2026.12** | Real robot · repeated trials · failure analysis | Sim↔Real results |
-| **2026.12 말** | Open-source release | Reproducible repository |
+| **Late 2026.12** | Open-source release | Reproducible repository |
 | **2027.01** | **Joint Research Sprint** | experiments + analysis + writing |
 | **2027.02** | **arXiv target** | Public preprint |
-| **2027.02 이후** | 당시 CFP + 연구 결과 검토 | Workshop / Conference challenge |
+| **After 2027.02** | Review current CFPs + research results | Workshop / Conference challenge |
 | **2027.05** | Research community participation | Research exchange / Teach-back |
 | **Beyond** | Micro Duck · new research questions | Follow-up research / Season 2 |
 
@@ -790,9 +790,9 @@ ICRA 2027 서울 개최도 이러한 research-community experience의 기회로 
 | 🎯 Runner | TBD | Sim-to-Real |
 | 🔧 Runner | TBD | Robot / Deployment |
 
-실제 구성은 참여 상황과 W4 관심 조사에 따라 조정합니다.
+The actual team structure will be adjusted based on participation and the W4 interest survey.
 
-중요한 것은 사람 수를 맞추는 것보다 **실험과 지식을 공유하여 특정 한 사람에게만 작업이 종속되지 않도록 하는 것**입니다.
+More important than filling a fixed number of roles is **sharing experiments and knowledge so the work does not depend on a single person**.
 
 ---
 
@@ -800,19 +800,19 @@ ICRA 2027 서울 개최도 이러한 research-community experience의 기회로 
 
 > **Explore → Question → Design → Build → Test → Measure → Improve → Share**
 
-우리의 기본 원칙:
+Our operating principles:
 
-- 🧪 **작게 시작합니다.**
-- ❓ **질문에서 실험을 시작합니다.**
-- 📖 **성공과 실패를 모두 기록합니다.**
-- 🔁 **재현 가능한 결과를 지향합니다.**
-- 🤝 **서로의 실험을 리뷰합니다.**
-- 🌱 **각자의 속도와 관심에 따라 깊이를 선택할 수 있습니다.**
-- 🌍 **가능하면 결과를 Open Source로 공유합니다.**
+- 🧪 **Start small.**
+- ❓ **Start experiments from questions.**
+- 📖 **Record both success and failure.**
+- 🔁 **Aim for reproducible results.**
+- 🤝 **Review one another's experiments.**
+- 🌱 **Choose your depth according to your own pace and interests.**
+- 🌍 **Share results as Open Source whenever possible.**
 
-이 프로젝트는 많은 시간을 투자하는 사람이 좋은 Runner라는 전제에서 출발하지 않습니다.
+This project does not assume that the person who spends the most time is the best Runner.
 
-**꾸준히 질문하고, 실험하고, 기록하고, 공유하는 것**을 더 중요하게 봅니다.
+We value **consistently asking, experimenting, documenting, and sharing** more.
 
 ---
 
@@ -824,7 +824,7 @@ ICRA 2027 서울 개최도 이러한 research-community experience의 기회로 
 [WXX][track] Task
 ```
 
-예:
+Example:
 
 ```text
 [W06][sim] Train condition B policy
@@ -838,13 +838,13 @@ wXX/track/short-description
 
 ### Pull Requests
 
-관련 Issue를 연결합니다.
+Link the relevant Issue.
 
 ```text
 Closes #NN
 ```
 
-가능하면 최소 1인의 review 후 merge합니다.
+Whenever possible, merge after review by at least one person.
 
 ### Labels
 
@@ -921,7 +921,7 @@ Sim2Real-Walking-Robot/
 
 # 📚 Project Outputs
 
-예상 결과물:
+Expected outputs:
 
 - 🧠 PPO policies
 - 📊 A/B/C/D experiment results
@@ -938,21 +938,21 @@ Sim2Real-Walking-Robot/
 
 # 🌱 Beyond the Core
 
-모든 참가자가 논문을 써야 하는 프로젝트는 아닙니다.
+Not every participant is required to write a paper.
 
-Core만 완주해도
+Completing the Core alone provides
 
 > **Learn → Build → Simulate → Train → Deploy → Measure → Open Source**
 
-라는 하나의 완결된 Robot Learning 경험을 갖게 됩니다.
+a complete Robot Learning experience.
 
-더 깊이 연구하고 싶은 사람은
+Participants who want to go deeper can continue with
 
 > **Research Question → Additional Experiments → Joint Research → arXiv → Workshop / Conference → Research Community**
 
-로 이어갈 수 있습니다.
+.
 
-그리고 그 과정에서 또 다른 질문이 생기면 다음 프로젝트가 시작됩니다.
+And when another question emerges during that process, the next project begins.
 
 > **The goal is not just to make a robot walk.  
 > The goal is to understand why it walks, why it fails, and what we can learn from both.**
@@ -961,9 +961,9 @@ Core만 완주해도
 
 # 🌱 How to Engage
 
-기수 참가자가 아니더라도 공개 세션, Issue, Pull Request 등을 통해 참여할 수 있습니다.
+Even people outside the cohort can participate through public sessions, Issues, and Pull Requests.
 
-특히 다음 기여를 환영합니다.
+We especially welcome contributions in:
 
 - reward function experiments
 - new terrain / perturbation conditions
@@ -972,16 +972,16 @@ Core만 완주해도
 - documentation
 - literature / open-source implementation discovery
 
-자세한 기여 방법은 `CONTRIBUTING.md`를 참고합니다.
+See `CONTRIBUTING.md` for detailed contribution guidelines.
 
 ---
 
 # 🙏 Acknowledgement
 
-이 프로젝트는 **Pseudo-Lab Open Academy**의 일부로 진행됩니다.
+This project is conducted as part of the **Pseudo-Lab Open Academy**.
 
-서로의 질문과 시행착오를 공개하고 함께 배우는 과정이  
-Pseudo-Lab의 **Serendipity Revolution**으로 이어지기를 기대합니다.
+We hope that openly sharing our questions and trial-and-error while learning together
+will contribute to Pseudo-Lab's **Serendipity Revolution**.
 
 Sim2Real-Walking-Robot is developed as part of Pseudo-Lab's open research community.
 
