@@ -786,9 +786,9 @@ After each event, we share what we learned through an internal **Research Review
 | Role | Name | Focus |
 |---|---|---|
 | 🧭 Builder | @andrewJYjang | project coordination · experiment design · policy |
-| 🦿 Runner | TBD | Learning / Policy |
-| 🎯 Runner | TBD | Sim-to-Real |
-| 🔧 Runner | TBD | Robot / Deployment |
+| 🦿 Runner | JH, YS | Learning / Policy |
+| 🎯 Runner | SJ, SM | Sim-to-Real |
+| 🔧 Runner | SR, JY | Robot / Deployment |
 
 The actual team structure will be adjusted based on participation and the W4 interest survey.
 
