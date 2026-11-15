@@ -1,0 +1,29 @@
+# Evaluation protocol — PROVISIONAL defaults. Freeze these numbers as a team, then do not touch.
+# Success criteria are relative to the command, so the same file works for any small biped.
+version: 0.1-draft
+fall:
+  tilt_deg: 60          # |roll| or |pitch| beyond this = fall
+tasks:
+  straight:
+    duration_s: 10
+    min_progress: 0.6   # distance along heading >= 60% of commanded distance
+    max_drift: 0.3      # lateral drift <= 30% of distance travelled
+  turn:
+    duration_s: 10
+    min_progress: 0.6   # |yaw turned| >= 60% of commanded angle
+    max_drift_m: 0.3    # stays within 0.3 m of start
+  push_recovery:
+    duration_s: 8
+    max_recovery_s: 3.0 # back within settle band this fast after the push
+    settle_deg: 5
+    settle_hold_s: 1.0
+  endurance:
+    duration_s: 30
+    min_progress: 0.5
+failure:
+  saturation_level: 0.95   # |torque| >= 95% of limit counts as saturated
+  saturation_frac: 0.30    # ...for 30% of the episode
+  slip_speed_mps: 0.05     # mean foot speed while in contact
+  oscillation_deg: 8       # roll/pitch RMS
+  no_progress: 0.2         # < 20% of commanded
+  obs_invalid_frac: 0.05

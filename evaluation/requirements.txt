@@ -1,0 +1,5 @@
+numpy
+pyyaml
+matplotlib
+mujoco  # only for s2rbench.mujoco_recorder and the MicroDuck example
+pytest  # tests
