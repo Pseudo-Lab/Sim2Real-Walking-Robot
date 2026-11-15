@@ -1,5 +1,6 @@
 numpy
 pyyaml
 matplotlib
-mujoco  # only for s2rbench.mujoco_recorder and the MicroDuck example
+mujoco        # MuJoCo examples and s2rbench.mujoco_recorder
+onnxruntime   # examples/openduck_benchmark.py
 pytest  # tests

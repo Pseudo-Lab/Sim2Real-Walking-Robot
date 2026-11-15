@@ -12,21 +12,57 @@
 
 ```bash
 pip install -r requirements.txt
-python examples/make_demo_logs.py --out runs_demo     # 가짜 데이터 320개 (보고서 모양 확인용)
+python examples/demo/make_demo_logs.py --out runs_demo     # 가짜 데이터 320개 (보고서 모양 확인용)
 python -m s2rbench validate runs_demo                 # 로그 형식 검사
 python -m s2rbench report runs_demo -o report_demo    # 보고서 생성
 pytest tests
 ```
 
-결과 견본: [`examples/sample_report/`](examples/sample_report/report.md) (가짜 데이터)
+결과 견본: [`examples/demo/sample_report/`](examples/demo/sample_report/report.md) (가짜 데이터)
 
-실제 MicroDuck 모델로 돌려보기 (학습된 정책 없이 가능):
+## Open Duck Mini로 돌려보기 (현재 주 플랫폼)
+
+공개된 학습 완료 정책으로 네 과제를 바로 돌릴 수 있습니다. 직접 학습한 정책은 `--onnx` 와 `--condition`(A~D)만 바꾸면 됩니다.
 
 ```bash
-git clone https://github.com/pollen-robotics/microduck_rl ../../microduck_rl
-python examples/microduck_stand_push.py --microduck-rl ../../microduck_rl --out runs_push
+git clone https://github.com/apirrone/Open_Duck_Playground ../../Open_Duck_Playground
+# 정책 파일: https://github.com/apirrone/Open_Duck_Mini 의 BEST_WALK_ONNX_2.onnx
+python examples/openduck/run_benchmark.py --playground ../../Open_Duck_Playground \
+    --onnx BEST_WALK_ONNX_2.onnx --condition A --out runs/openduck/sim
+python -m s2rbench report runs/openduck -o report
+```
+
+외란 수준별 강건성은 힘을 바꿔 가며 돌리면 됩니다.
+
+```bash
+for f in 5 10 15 20; do
+  python examples/openduck/run_benchmark.py --playground ../../Open_Duck_Playground --onnx BEST_WALK_ONNX_2.onnx \
+      --tasks push_recovery --push-n $f --condition push_${f}N --out runs_push/sim
+done
 python -m s2rbench report runs_push -o report_push
 ```
+
+공개 정책으로 실제 돌린 결과: [`examples/openduck/baseline.md`](examples/openduck/baseline.md)
+
+실물 Open Duck Mini에서는 런타임의 제어 루프에 `Recorder` 를 넣어 같은 형식으로 남기고 `runs/real/` 에 두면, 보고서가 시뮬과 실물을 나란히 비교합니다.
+
+### MicroDuck (로봇 수령 후)
+
+`examples/microduck/stand_push.py` 는 MicroDuck 모델을 세워 놓고 미는 예제로 남겨 두었습니다. 로봇이 도착하면 Open Duck과 같은 방식의 실행기를 추가합니다.
+
+## 로봇을 추가할 때
+
+로봇마다 달라지는 것은 `examples/<로봇>/` 안에만 둡니다. `s2rbench/` 와 `protocol.yaml` 은 모든 로봇이 함께 씁니다.
+
+```
+examples/
+├── openduck/    run_benchmark.py · baseline.md
+├── microduck/   stand_push.py
+└── demo/        make_demo_logs.py · sample_report/   (가짜 데이터)
+```
+
+새 로봇은 `examples/<로봇>/run_benchmark.py` 하나를 추가하고, 로그의 meta에 `robot="<로봇>"` 을 적으면 됩니다.
+로그도 `runs/<로봇>/sim`, `runs/<로봇>/real` 로 나눠 두세요. 한 폴더에 여러 로봇이 섞여 있으면 보고서가 멈추고 `--robot` 으로 하나를 고르라고 알려 줍니다.
 
 ## 로그 남기기
 
@@ -91,6 +127,7 @@ Gap Coordinates(바닥 재질, 추가 하중, 배터리 전압 등)는 meta에 �
 
 ## 한계
 
-- 실물 로봇 로그로는 아직 검증하지 못했습니다. 단위 시험, 가짜 데이터, MuJoCo의 MicroDuck 모델(서 있기 + 밀기)까지만 확인했습니다.
-- `microduck_stand_push.py` 는 보행 정책이 아니라 단순 위치 서보로 서 있는 로봇을 미는 예제입니다. 학습 때 쓰는 BAM 액추에이터 모델도 넣지 않았습니다.
+- 실물 로봇 로그로는 아직 검증하지 못했습니다. 단위 시험, 가짜 데이터, MuJoCo의 Open Duck Mini(공개 보행 정책)와 MicroDuck 모델(서 있기 + 밀기)까지 확인했습니다.
+- `openduck/run_benchmark.py` 는 시행마다 바닥 마찰(0.7~1.0배)과 초기 관절 각도만 조금 바꿉니다. 조건이 좁아서 시뮬 반복 간 편차가 실물보다 작게 나옵니다.
+- `microduck/stand_push.py` 는 보행 정책이 아니라 단순 위치 서보로 서 있는 로봇을 미는 예제입니다. 학습 때 쓰는 BAM 액추에이터 모델도 넣지 않았습니다.
 - 토크는 시뮬에서는 액추에이터 힘, 실물에서는 전류 추정값이라 CoT를 시뮬과 실물 사이에 직접 비교할 때는 주의가 필요합니다.
