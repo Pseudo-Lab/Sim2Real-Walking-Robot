@@ -102,8 +102,10 @@ Seed Paper와 최종적으로 연구할 논문은 **같을 필요가 없습니�
 
 ## 🚀 From Paper to Robot
 
-최종 목표는 논문 발표 자체가 아닙니다.
+논문 발표는 연구의 출발점입니다.
 
-**Read → Question → Code → Reproduce → Experiment → Sim2Real**
+우리는 논문을 읽고 이해하는 데서 그치지 않고, 핵심 아이디어를 코드로 구현하고, 실험으로 검증하며, 실제 로봇에 적용하는 것을 목표로 합니다.
 
-좋은 아이디어는 GitHub Issue와 실험으로 연결합니다.
+Read → Question → Code → Reproduce → Experiment → Sim2Real
+
+발표를 통해 발견한 좋은 아이디어는 GitHub Issue로 구체화하고, 팀별 실험과 재현을 거쳐 우리 프로젝트의 연구 성과로 연결합니다.
